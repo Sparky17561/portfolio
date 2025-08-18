@@ -8,12 +8,14 @@
   --accent-red: #ff6b6b;
 
   /* tweak this to nudge robot inside right half (percent of its own width) */
-  --robot-shift: 36%;
+  --robot-shift: 24%;
 }
 
 /* Base */
 html, body, #root {
   height: 100%;
+  width: 100%;              /* <- ADD */
+  max-width: 100vw;         /* <- ADD - prevent content from exceeding viewport */
   background: var(--bg);
   color: #fff;
   font-family: Inter, "Segoe UI", Roboto, system-ui, -apple-system;
@@ -72,6 +74,7 @@ html, body, #root {
   align-items: center;
   overflow: hidden; /* CRITICAL: ensures cube doesn't escape left half */
   padding: 40px 36px;
+  min-width: 0;        /* <-- ADD this line */
 }
 
 /* Cube sits behind the content and intentionally bleeds right,
@@ -99,6 +102,7 @@ html, body, #root {
   width: 100%;
   max-width: calc(100% - 40px);
   padding-right: 20px;
+  min-width: 0;        /* <-- ADD this line */
 }
 
 /* NAME: allow wrapping, ensure it never clips */
@@ -167,6 +171,7 @@ html, body, #root {
   justify-content: center;
   overflow: hidden; /* CRITICAL: hide watermark or any out-of-bounds bits */
   padding: 20px 36px;
+  min-width: 0;        /* <-- ADD this line */
 }
 
 /* Make wrapper full-size of the right half, no left translation */
