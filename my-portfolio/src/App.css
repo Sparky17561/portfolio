@@ -8,7 +8,7 @@
   --accent-red: #ff6b6b;
 
   /* tweak this to nudge robot inside right half (percent of its own width) */
-  --robot-shift: 24%;
+  --robot-shift: 32%;
 }
 
 /* Base */
