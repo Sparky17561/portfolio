@@ -1,20 +1,11 @@
 import React, { useState } from "react";
 
-// Resume Button Component
+// Resume Button Component that matches your existing structure
 export default function ResumeButton({ href = "/resume.pdf" }) {
-  const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div className="resume-btn-wrapper">
-      <a
-        href={href}
-        className="resume-btn"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className={`resume-btn-glow ${isHovered ? 'active' : ''}`} />
-        <div className="resume-btn-shine" />
-        <span className="resume-btn-text">Resume</span>
+      <a href={href} className="resume-btn">
+        Resume
       </a>
     </div>
   );

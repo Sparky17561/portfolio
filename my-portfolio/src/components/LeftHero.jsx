@@ -2,7 +2,11 @@ import React from "react";
 import Typewriter from "./Typewriter";
 import ResumeButton from "./ResumeButton";
 
-// Left Hero Component
+/**
+ * Left Hero Component
+ * Note: we apply the .gradient-text class on the hero-name so the
+ * exact same left→right 4-stop gradient is used.
+ */
 export default function LeftHero() {
   const sentences = [
     "Hey — I'm Saiprasad Jamdar, final year BE Computer Engineering @ SAKEC.",
@@ -12,15 +16,16 @@ export default function LeftHero() {
 
   return (
     <div className="left-hero-inner">
-      <h1 className="hero-name">
+      {/* Apply both hero-name and gradient-text */}
+      <h1 className="hero-name gradient-text" aria-label="Saiprasad Jamdar">
         <span className="name-line">Saiprasad</span>
         <span className="name-line">Jamdar</span>
       </h1>
-      
+
       <div className="hero-sub">
         <Typewriter sentences={sentences} />
       </div>
-      
+
       <div className="hero-cta">
         <ResumeButton href="/resume.pdf" />
       </div>
