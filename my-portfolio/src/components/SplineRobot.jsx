@@ -1,27 +1,36 @@
-import React from "react";
-import Spline from "@splinetool/react-spline";
+import React, { Suspense } from "react";
 import ErrorBoundary from "./ErrorBoundary";
 
+// Lazy load the Spline component
+const LazySpline = React.lazy(() => import("@splinetool/react-spline"));
+
 export default function SplineRobot() {
-  // You can pass onLoad to handle the spline instance if needed.
   const handleLoad = (spline) => {
-    // optional interactions with spline scene (safe to be empty)
-    // console.log("Spline robot loaded", spline);
+    // Safe hook to interact with Spline scene
+    // console.log("Robot spline loaded", spline);
   };
 
   return (
     <ErrorBoundary>
-      <div className="spline-wrapper" aria-hidden>
-        <div className="spline-stage">
-          <div className="spline-inner" role="img" aria-label="Animated robot">
-            {/* Use your robot scene url */}
-            <Spline
-              scene="https://prod.spline.design/IcNORG5QRmYmORSV/scene.splinecode"
-              onLoad={handleLoad}
-            />
+      <div className="spline-robot-wrapper" aria-hidden>
+        <div className="spline-robot-stage">
+          <div
+            className="spline-robot-inner"
+            role="img"
+            aria-label="Animated 3D robot"
+          >
+            <Suspense fallback={<div className="spline-fallback">Loading…</div>}>
+              <LazySpline
+                scene="https://prod.spline.design/IcNORG5QRmYmORSV/scene.splinecode"
+                onLoad={handleLoad}
+              />
+            </Suspense>
           </div>
         </div>
-        <div className="spline-badge-cover" aria-hidden />
+
+        {/* Overlays to block watermark & smooth visuals */}
+        <div className="spline-watermark-blocker" aria-hidden />
+        <div className="spline-center-blocker" aria-hidden />
         <div className="spline-dimmer" aria-hidden />
       </div>
     </ErrorBoundary>

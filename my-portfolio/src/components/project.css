@@ -1,0 +1,230 @@
+/* project.css
+   Neon / glass project grid - responsive and performant
+   Drop this file alongside Project.jsx and import it.
+*/
+
+/* Theme variables (use your main theme if present) */
+:root{
+  --bg: #0b0b0b;
+  --card-bg: rgba(12,12,12,0.72);
+  --glass-border: rgba(0,255,136,0.08);
+  --accent: #00ff88;
+  --accent-strong: #00e676;
+  --muted: #9aa0a6;
+  --glass-blur: 8px;
+}
+
+/* Section */
+.projects-section{
+  background: transparent;
+  padding: 48px 20px;
+  width: 100%;
+}
+
+.projects-inner{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.projects-title{
+  font-family: 'Poppins', Inter, system-ui, sans-serif;
+  color: #fff;
+  font-size: clamp(1.6rem, 2.6vw, 2rem);
+  margin: 0 0 22px 0;
+  text-align: left;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Grid layout */
+.projects-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 22px;
+}
+
+/* Card */
+.project-card{
+  background: var(--card-bg);
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.03);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 360ms cubic-bezier(.2,.9,.2,1), box-shadow 360ms ease, border-color 360ms ease;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6);
+  will-change: transform;
+  outline: none;
+  cursor: default;
+  padding: 0;
+}
+
+/* Highlighted card variant */
+.project-card.project-highlight {
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.6),
+    0 8px 32px rgba(0,255,136,0.05);
+}
+
+/* hover / focus */
+.project-card:hover,
+.project-card:focus {
+  transform: translateY(-8px);
+  border-color: rgba(0,255,136,0.16);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.7),
+    0 12px 40px rgba(0,255,136,0.06);
+}
+
+/* media area */
+.project-media{
+  height: 0;
+  padding-top: 56%; /* 16:9 */
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.28));
+}
+
+/* image / video fit */
+.project-image,
+.project-video{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform-origin: center;
+  transition: transform 420ms ease;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* slight zoom on hover */
+.project-card:hover .project-image,
+.project-card:hover .project-video{
+  transform: scale(1.04);
+  filter: saturate(1.05);
+}
+
+/* body content */
+.project-body{
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* title / short */
+.project-title{
+  color: #fff;
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+}
+
+.project-short{
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.35;
+}
+
+/* meta row */
+.project-meta{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+/* tech tags */
+.tech-list{
+  list-style: none;
+  display: flex;
+  gap: 8px;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
+}
+
+.tech-item{
+  font-size: 0.78rem;
+  color: var(--accent);
+  background: rgba(0,255,136,0.06);
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,255,136,0.06);
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+
+/* links */
+.project-links{
+  display:flex;
+  gap: 8px;
+  align-items:center;
+}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+
+/* Live demo button - glassy green */
+.btn-demo{
+  background: linear-gradient(180deg, rgba(0,255,136,0.08), rgba(0,255,136,0.04));
+  color: #000;
+  border: 1px solid rgba(51,255,170,0.18);
+  box-shadow: 0 8px 20px rgba(0,255,136,0.06);
+}
+
+/* Code button - subtle */
+.btn-repo{
+  background: rgba(255,255,255,0.03);
+  color: #fff;
+}
+
+/* small hover pop */
+.btn:hover { transform: translateY(-3px); }
+
+/* reveal animation controlled by class toggle */
+.project-card {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 520ms cubic-bezier(.2,.9,.2,1), transform 520ms cubic-bezier(.2,.9,.2,1), box-shadow 360ms ease;
+}
+
+.project-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* accessibility & focus */
+.project-card:focus {
+  box-shadow:
+    0 12px 36px rgba(0,0,0,0.65),
+    0 12px 40px rgba(0,255,136,0.06);
+  border-color: rgba(0,255,136,0.18);
+}
+
+/* responsive tweaks */
+@media (max-width: 900px){
+  .projects-grid { gap: 18px; }
+  .project-body { padding: 14px; }
+}
+
+@media (max-width: 520px){
+  .projects-grid { grid-template-columns: 1fr; }
+  .projects-title { text-align: center; }
+}

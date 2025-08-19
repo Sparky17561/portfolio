@@ -1,0 +1,138 @@
+/* =================== EXPERIENCE STYLES =================== */
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 1px;
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 48px;
+  padding-left: 60px;
+  opacity: 0;
+  transform: translateX(-30px);
+  animation: slideInFromLeft 0.8s ease-out forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.2s; }
+.timeline-item:nth-child(2) { animation-delay: 0.4s; }
+.timeline-item:nth-child(3) { animation-delay: 0.6s; }
+.timeline-item:nth-child(4) { animation-delay: 0.8s; }
+
+@keyframes slideInFromLeft {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: 11px;
+  top: 8px;
+  width: 20px;
+  height: 20px;
+  background: var(--accent-primary);
+  border-radius: 50%;
+  border: 3px solid #000;
+  box-shadow: 0 0 16px rgba(0,255,136,0.5);
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover::before {
+  transform: scale(1.2);
+  box-shadow: 0 0 24px rgba(0,255,136,0.8);
+}
+
+.timeline-date {
+  color: var(--accent-primary);
+  font-weight: 600;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.timeline-content {
+  transition: all 0.3s ease;
+}
+
+.timeline-content h3 {
+  color: #ffffff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-family: 'Poppins', system-ui, sans-serif;
+  transition: all 0.3s ease;
+}
+
+.timeline-content .company {
+  color: var(--accent-primary-light);
+  font-weight: 600;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+}
+
+.timeline-content p:last-child {
+  color: #cccccc;
+  line-height: 1.6;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.timeline-item:hover .timeline-content h3 {
+  color: var(--accent-primary-light);
+  text-shadow: 0 0 12px rgba(0,255,136,0.3);
+}
+
+.timeline-item:hover .timeline-content .company {
+  color: #ffffff;
+}
+
+.timeline-item:hover .timeline-content p:last-child {
+  color: #f0f0f0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 15px;
+  }
+  
+  .timeline-item {
+    padding-left: 50px;
+    margin-bottom: 40px;
+  }
+  
+  .timeline-item::before {
+    left: 6px;
+    width: 18px;
+    height: 18px;
+  }
+  
+  .timeline-content h3 {
+    font-size: 1.2rem;
+  }
+  
+  .timeline-content .company {
+    font-size: 1rem;
+  }
+  
+  .timeline-content p:last-child {
+    font-size: 0.95rem;
+  }
+}

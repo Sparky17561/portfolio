@@ -25,37 +25,106 @@ export default function Navbar() {
 
   const closeMenu = () => setIsOpen(false);
 
-  // Prevent body scroll when menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+  const handleNavClick = (e, targetId) => {
+    e.preventDefault();
     
-    // Cleanup on unmount
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isOpen]);
+    // FIXED: Close menu immediately for better UX
+    setIsOpen(false);
+    
+    // FIXED: Shorter delay and better error handling
+    setTimeout(() => {
+      const lenis = window.lenis || window.lenisInstance;
+      const el = document.querySelector(targetId);
+      
+      console.log(`Navigating to: ${targetId}`, { el, lenis }); // Debug log
+      
+      if (el && lenis) {
+        try {
+          lenis.scrollTo(el, {
+            offset: targetId === "#home" ? 0 : -72, // No offset for home, -72 for others
+            duration: 1.2
+          });
+        } catch (error) {
+          console.warn("Lenis scroll error:", error);
+          // Fallback if Lenis fails
+          const offsetTop = targetId === "#home" ? 0 : el.offsetTop - 72;
+          window.scrollTo({
+            top: offsetTop,
+            behavior: 'smooth'
+          });
+        }
+      } else if (el) {
+        // FIXED: Better fallback scroll
+        const offsetTop = targetId === "#home" ? 0 : el.offsetTop - 72;
+        window.scrollTo({
+          top: offsetTop,
+          behavior: 'smooth'
+        });
+      } else {
+        console.warn(`Element not found: ${targetId}`);
+        // Last resort - try scrolling to top if home
+        if (targetId === "#home") {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        }
+      }
+    }, 50); // FIXED: Reduced delay
+  };
+
+  // FIXED: Handle logo click to go to home
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    setIsOpen(false);
+    
+    setTimeout(() => {
+      const lenis = window.lenis || window.lenisInstance;
+      const homeEl = document.querySelector("#home");
+      
+      console.log("Logo clicked, navigating to home", { homeEl, lenis }); // Debug
+      
+      if (homeEl && lenis) {
+        try {
+          lenis.scrollTo(homeEl, {
+            offset: 0,
+            duration: 1.2
+          });
+        } catch (error) {
+          console.warn("Logo Lenis scroll error:", error);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } else {
+        // Always fallback to top scroll for logo
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 50);
+  };
 
   return (
     <>
       <header className={`nav${isOpen ? " open" : ""}`}>
         <div className="nav-inner">
-          <div className="logo" title="Home">
+          {/* FIXED: Logo now navigates to home section */}
+          <div 
+            className="logo" 
+            title="Home" 
+            onClick={handleLogoClick}
+            style={{ cursor: 'pointer' }}
+          >
             SJ
           </div>
 
           {/* Inline links (desktop) */}
           <nav className="nav-inline" aria-label="Primary">
             <ul className="nav-links">
-              <li><a className="nav-link" href="#about">about</a></li>
-              <li><a className="nav-link" href="#projects">projects</a></li>
-              <li><a className="nav-link" href="#experience">experience</a></li>
-              <li><a className="nav-link" href="#community">community</a></li>
-              <li><a className="nav-link" href="#blog">blog</a></li>
-              <li><a className="nav-link" href="#contact">contact</a></li>
+              <li><a className="nav-link" href="#home" onClick={(e)=>handleNavClick(e,"#home")}>home</a></li>
+              <li><a className="nav-link" href="#about" onClick={(e)=>handleNavClick(e,"#about")}>about</a></li>
+              <li><a className="nav-link" href="#projects" onClick={(e)=>handleNavClick(e,"#projects")}>projects</a></li>
+              <li><a className="nav-link" href="#experience" onClick={(e)=>handleNavClick(e,"#experience")}>experience</a></li>
+              <li><a className="nav-link" href="#community" onClick={(e)=>handleNavClick(e,"#community")}>community</a></li>
+              <li><a className="nav-link" href="#blog" onClick={(e)=>handleNavClick(e,"#blog")}>blog</a></li>
+              <li><a className="nav-link" href="#contact" onClick={(e)=>handleNavClick(e,"#contact")}>contact</a></li>
             </ul>
           </nav>
 
@@ -74,12 +143,13 @@ export default function Navbar() {
           {/* Mobile dropdown */}
           <nav className={`nav-menu ${isOpen ? "open" : ""}`} aria-hidden={!isOpen}>
             <ul className="nav-links">
-              <li><a className="nav-link" href="#about" onClick={closeMenu}>about</a></li>
-              <li><a className="nav-link" href="#projects" onClick={closeMenu}>projects</a></li>
-              <li><a className="nav-link" href="#experience" onClick={closeMenu}>experience</a></li>
-              <li><a className="nav-link" href="#community" onClick={closeMenu}>community</a></li>
-              <li><a className="nav-link" href="#blog" onClick={closeMenu}>blog</a></li>
-              <li><a className="nav-link" href="#contact" onClick={closeMenu}>contact</a></li>
+              <li><a className="nav-link" href="#home" onClick={(e)=>handleNavClick(e,"#home")}>home</a></li>
+              <li><a className="nav-link" href="#about" onClick={(e)=>handleNavClick(e,"#about")}>about</a></li>
+              <li><a className="nav-link" href="#projects" onClick={(e)=>handleNavClick(e,"#projects")}>projects</a></li>
+              <li><a className="nav-link" href="#experience" onClick={(e)=>handleNavClick(e,"#experience")}>experience</a></li>
+              <li><a className="nav-link" href="#community" onClick={(e)=>handleNavClick(e,"#community")}>community</a></li>
+              <li><a className="nav-link" href="#blog" onClick={(e)=>handleNavClick(e,"#blog")}>blog</a></li>
+              <li><a className="nav-link" href="#contact" onClick={(e)=>handleNavClick(e,"#contact")}>contact</a></li>
             </ul>
           </nav>
         </div>
