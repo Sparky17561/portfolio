@@ -4,10 +4,13 @@ import LeftHero from "./components/LeftHero";
 import SplineRobot from "./components/SplineRobot";
 import VideoCube from "./components/VideoCube";
 import AboutUs from "./components/AboutUs";
+import Projects from "./components/Projects";
+import MakeSkill from "./components/MakeSkill";
+import Experience from "./components/Experience";
 import "./App.css";
 
 import Lenis from "@studio-freight/lenis";
-import Projects from "./components/Project";
+import Contact from "./components/contact";
 
 function useIsDesktop(threshold = 1100) {
   const isWindow = typeof window !== "undefined";
@@ -135,61 +138,19 @@ export default function App() {
         <AboutUs highlights={['SaiprasadJamdar','VibeCoding','CoolProjects','DSA','Gamethon2k25','FYTopper','awesome.',':)']} />
       </section>
 
-      {/* PROJECTS SECTION - Enhanced content */}
-      <section 
-        id="projects" 
-        className="content-section"
-        style={{ 
-          minHeight: '100vh', 
-          padding: '120px 20px 80px',
-          scrollMarginTop: '72px',
-          background: 'linear-gradient(180deg, #000 0%, #0a0a0a 100%)'
-        }}
-      >
-        <Projects/>
-          
+      {/* PROJECTS SECTION - Interactive Slideshow */}
+      <section id="projects" style={{ scrollMarginTop: '0px', background: 'linear-gradient(180deg,#000 0%,#0a0a0a 100%)' }}>
+        <Projects />
+      </section>
+
+      {/* SKILLS SECTION - horizontal infinite marquee */}
+      <section id="skills" aria-label="Skills" style={{ scrollMarginTop: '72px' }}>
+        <MakeSkill />
       </section>
 
       {/* EXPERIENCE SECTION */}
-      <section 
-        id="experience" 
-        className="content-section"
-        style={{ 
-          minHeight: '100vh', 
-          padding: '120px 20px 80px',
-          scrollMarginTop: '72px',
-          background: 'linear-gradient(180deg, #0a0a0a 0%, #111 100%)'
-        }}
-      >
-        <div className="section-content">
-          <h2 className="section-title">Experience</h2>
-          <div className="timeline">
-            <div className="timeline-item">
-              <div className="timeline-date">2024 - Present</div>
-              <div className="timeline-content">
-                <h3>Senior Frontend Developer</h3>
-                <p className="company">Tech Company Inc.</p>
-                <p>Leading frontend development for enterprise applications using React and modern web technologies.</p>
-              </div>
-            </div>
-            <div className="timeline-item">
-              <div className="timeline-date">2022 - 2024</div>
-              <div className="timeline-content">
-                <h3>Full Stack Developer</h3>
-                <p className="company">Startup Solutions</p>
-                <p>Built scalable web applications and APIs, mentored junior developers.</p>
-              </div>
-            </div>
-            <div className="timeline-item">
-              <div className="timeline-date">2020 - 2022</div>
-              <div className="timeline-content">
-                <h3>Frontend Developer</h3>
-                <p className="company">Digital Agency</p>
-                <p>Developed responsive websites and interactive user interfaces for various clients.</p>
-              </div>
-            </div>
-          </div>
-        </div>
+      <section id="experience" >
+        <Experience />
       </section>
 
       {/* COMMUNITY SECTION */}
@@ -262,40 +223,8 @@ export default function App() {
       </section>
 
       {/* CONTACT SECTION */}
-      <section 
-        id="contact" 
-        className="content-section"
-        style={{ 
-          minHeight: '100vh', 
-          padding: '120px 20px 80px',
-          scrollMarginTop: '72px',
-          background: 'linear-gradient(180deg, #111 0%, #000 100%)'
-        }}
-      >
-        <div className="section-content">
-          <h2 className="section-title">Contact</h2>
-          <div className="contact-content">
-            <p className="contact-intro">Let's build something amazing together</p>
-            <div className="contact-methods">
-              <a href="mailto:hello@saiprasad.dev" className="contact-link">
-                <span className="contact-icon">📧</span>
-                hello@saiprasad.dev
-              </a>
-              <a href="https://linkedin.com/in/saiprasad" className="contact-link">
-                <span className="contact-icon">💼</span>
-                LinkedIn
-              </a>
-              <a href="https://github.com/saiprasad" className="contact-link">
-                <span className="contact-icon">💻</span>
-                GitHub
-              </a>
-              <a href="https://twitter.com/saiprasad" className="contact-link">
-                <span className="contact-icon">🐦</span>
-                Twitter
-              </a>
-            </div>
-          </div>
-        </div>
+      <section id="contact">
+        <Contact/> 
       </section>
     </div>
   );

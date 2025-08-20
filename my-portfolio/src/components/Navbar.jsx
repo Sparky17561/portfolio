@@ -121,6 +121,7 @@ export default function Navbar() {
               <li><a className="nav-link" href="#home" onClick={(e)=>handleNavClick(e,"#home")}>home</a></li>
               <li><a className="nav-link" href="#about" onClick={(e)=>handleNavClick(e,"#about")}>about</a></li>
               <li><a className="nav-link" href="#projects" onClick={(e)=>handleNavClick(e,"#projects")}>projects</a></li>
+              <li><a className="nav-link" href="#skills" onClick={(e)=>handleNavClick(e,"#skills")}>skills</a></li>
               <li><a className="nav-link" href="#experience" onClick={(e)=>handleNavClick(e,"#experience")}>experience</a></li>
               <li><a className="nav-link" href="#community" onClick={(e)=>handleNavClick(e,"#community")}>community</a></li>
               <li><a className="nav-link" href="#blog" onClick={(e)=>handleNavClick(e,"#blog")}>blog</a></li>

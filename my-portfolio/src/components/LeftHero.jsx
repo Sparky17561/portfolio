@@ -29,9 +29,9 @@ export default function LeftHero() {
         <span className="name-line">Jamdar</span>
       </h1>
 
-      <div className="hero-sub">
+      {/* <div className="hero-sub">
         <Typewriter sentences={sentences} />
-      </div>
+      </div> */}
 
       <div className="hero-cta">
         <ResumeButton href="/resume.pdf" />
