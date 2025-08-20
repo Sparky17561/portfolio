@@ -1,5 +1,5 @@
 import React from "react";
-import "./skill.css";
+
 
 /**
  * MakeSkill.jsx

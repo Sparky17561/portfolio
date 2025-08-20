@@ -39,20 +39,20 @@ html, body {
   font-size: 3.6rem;
   font-weight: 700;
   margin: 0;
-  /* gradient text */
+  /* gradient text - white to grey */
   background: linear-gradient(
     90deg,
-    #caffe7 0%,
-    #9fffc9 25%,
-    #6ef3a0 50%,
-    #3ee87a 75%,
-    #caffe7 100%
+    #ffffff 0%,
+    #e5e5e5 25%,
+    #cccccc 50%,
+    #e5e5e5 75%,
+    #ffffff 100%
   );
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: gradientShiftGreen 8s linear infinite;
+  animation: gradientShiftWhite 8s linear infinite;
 }
 
 .projects-description {
@@ -61,7 +61,7 @@ html, body {
   font-size: 1.05rem;
 }
 
-@keyframes gradientShiftGreen {
+@keyframes gradientShiftWhite {
   0% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
@@ -141,21 +141,21 @@ html, body {
 .project-title { font-size: 3.2rem; font-weight: 800; margin-bottom: 1rem; }
 
 .project-title-text {
-  background: linear-gradient(90deg, #caffe7 0%, #9fffc9 35%, #6ef3a0 70%);
+  background: linear-gradient(90deg, #ffffff 0%, #e5e5e5 35%, #cccccc 70%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: gradientShiftGreen 8s linear infinite;
+  animation: gradientShiftWhite 8s linear infinite;
 }
 
 .project-description-text { color: #dcdcdc; line-height: 1.5; margin-bottom: 1.5rem; }
 
 .project-stack-items { display:flex; flex-wrap:wrap; gap:.7rem; }
 .project-stack-item {
-  background: rgba(46, 224, 106, 0.06);
-  border: 1px solid rgba(46, 224, 106, 0.14);
-  color: #bfffe0;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffffff;
   padding: .45rem .9rem;
   border-radius: 18px;
   font-size: .85rem;
@@ -180,7 +180,7 @@ html, body {
   width: 60px;
   height: 2px;
   transform-origin: right center;
-  background: #00ff88;
+  background: #ffffff;
   transform: scaleX(.5);
 }
 .project-index.active { transform: scaleX(1); }
@@ -229,11 +229,11 @@ html, body {
   border-radius: 50%;
   z-index: 19;
   pointer-events: none;
-  box-shadow: 0 0 34px rgba(46, 224, 106, 0.06), 0 0 8px rgba(46,224,106,0.04) inset;
+  box-shadow: 0 0 34px rgba(255, 255, 255, 0.06), 0 0 8px rgba(255, 255, 255, 0.04) inset;
   transition: box-shadow 0.25s ease;
 }
 .project-link-wrapper:hover::before {
-  box-shadow: 0 0 48px rgba(46, 224, 106, 0.14), 0 0 12px rgba(46,224,106,0.08) inset;
+  box-shadow: 0 0 48px rgba(255, 255, 255, 0.14), 0 0 12px rgba(255, 255, 255, 0.08) inset;
 }
 
 .project-link-wrapper a { display:block; width:100%; height:100%; }
@@ -242,7 +242,7 @@ html, body {
 .project-line { height: 20px; overflow: hidden; }
 .project-line-1 { position: relative; width: 60px; left: -2px; }
 .project-line-2 { position: relative; width: 80px; left: 20px; }
-.project-line p { position:absolute; transform: translateY(0); margin:0; color:#9ef4c6; }
+.project-line p { position:absolute; transform: translateY(0); margin:0; color:#ffffff; }
 
 /* Utility */
 svg { pointer-events: none; }
@@ -255,4 +255,36 @@ svg { pointer-events: none; }
   .project-title { font-size: 2rem; }
   .project-link { width: 140px; height: 140px; top: calc(var(--navbar-height) + 12px); right: 6%; }
   .project-link-wrapper { width: 120px; height: 120px; }
+}
+
+
+/* slide container centers the image */
+.project-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  will-change: transform;
+  overflow: hidden;
+  z-index: 0;
+
+  /* center image inside the slide */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.40)); /* subtle fill for letterbox */
+}
+
+/* image is contained (no crop), keeps aspect ratio */
+.project-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;       /* important: contain instead of cover */
+  object-position: center;
+  transform-origin: center center;
+  transform: scale(1);       /* remove forced large scale */
+  transition: transform 700ms cubic-bezier(.16,.84,.24,1);
 }

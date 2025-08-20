@@ -1,0 +1,311 @@
+/* =================== HERO SECTION =================== */
+
+.hero-container{
+  display:grid; 
+  grid-template-columns:1fr 1fr; 
+  grid-template-areas:"left right";
+  gap:60px; 
+  padding:calc(72px + 40px) 5% 80px;
+  min-height:85vh; 
+  max-width:1600px; 
+  margin:0 auto; 
+  align-items:center; 
+  overflow:hidden;
+}
+
+.hero-left{ 
+  grid-area:left; 
+  position:relative; 
+  min-height:620px; 
+  display:flex; 
+  align-items:center; 
+  overflow:visible;
+  padding:40px 20px;
+  min-width:0; 
+}
+
+.left-hero-inner {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  max-width: none;
+  padding-right: 0;
+  min-width: 0;
+}
+
+.cube-background{
+  position:absolute; 
+  top:35%; 
+  right:-20%;
+  width:135%; 
+  max-width:1000px; 
+  height:135%; 
+  max-height:1000px;
+  transform:translateY(-50%) scale(.62);
+  z-index:1; 
+  opacity:0.85; 
+  pointer-events:none; 
+  filter: blur(.5px) saturate(1.1) contrast(1.05);
+  border-radius:16px; 
+  mix-blend-mode:screen;
+}
+
+/* hero content */
+.hero-content{ 
+  position:relative; 
+  z-index:4; 
+  width:100%; 
+  max-width:none;
+  padding-right:0;
+  min-width:0; 
+}
+
+/* ========== HERO NAME - WHITE TEXT WITH GREEN GLOW ========== */
+
+.hero-name,
+.hero-name.gradient-text {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: clamp(3.5rem, 8vw, 10rem);
+  line-height: 0.9;
+  font-weight: 700;
+  margin-bottom: 32px;
+  letter-spacing: -1px;
+  position: relative;
+  z-index: 60;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Pure white text with subtle green glow */
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  -webkit-text-fill-color: #ffffff !important;
+  
+  text-shadow: 
+    0 0 20px rgba(255,255,255,0.3),
+    0 2px 8px rgba(0,0,0,0.2),
+    0 4px 16px rgba(0,255,136,0.1);
+    
+  overflow: visible;
+  word-wrap: normal;
+  hyphens: none;
+  text-align: left;
+  width: 100%;
+  max-width: none;
+  white-space: nowrap;
+}
+
+.name-line { 
+  display: block; 
+  margin: 0;
+  padding: 0;
+  line-height: inherit;
+  white-space: nowrap;
+}
+
+.hero-name .name-line:first-child::first-letter,
+.hero-name .name-line:last-child::first-letter {
+  color: #ffffff;
+  text-shadow: 
+    0 0 16px rgba(0,255,136,0.6),
+    0 0 32px rgba(0,255,136,0.4),
+    0 2px 8px rgba(0,0,0,0.3);
+    
+  animation: subtleLetterGlow 4s ease-in-out infinite;
+}
+
+@keyframes subtleLetterGlow {
+  0%, 100% {
+    text-shadow: 
+      0 0 16px rgba(0,255,136,0.6),
+      0 0 32px rgba(0,255,136,0.4),
+      0 2px 8px rgba(0,0,0,0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 24px rgba(0,255,136,0.8),
+      0 0 48px rgba(0,255,136,0.6),
+      0 2px 12px rgba(0,0,0,0.3);
+  }
+}
+
+/* ========== ENHANCED TYPEWRITER EFFECT ========== */
+.hero-sub{ 
+  margin-top:32px; 
+  margin-bottom:48px; 
+  max-width:700px; 
+  color: #ffffff;
+  font-size:22px; 
+  line-height:1.6; 
+  position:relative; 
+  text-align:center;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  font-family: 'Inter', system-ui, sans-serif;
+  
+  text-shadow: 
+    0 0 20px rgba(255,255,255,0.8),
+    0 0 40px rgba(136,255,170,0.6),
+    0 0 60px rgba(0,255,136,0.4);
+}
+
+.hero-right {
+  grid-area: right;
+  position: relative;
+  width: 100%;
+  height: 620px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 40px 80px;
+  min-width: 0;
+}
+
+/* ---------- Polished Hero CTA + Socials (use with LeftHero.jsx) ---------- */
+
+.hero-cta {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-top: 28px;
+  z-index: 60;
+  flex-wrap: wrap;
+}
+
+/* social group */
+.socials {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  justify-content: flex-start;
+  margin-left: 6px;
+}
+
+/* each round button */
+.social-link {
+  --size: 56px;            /* outer circle */
+  --icon-size: 22px;      /* icon art */
+  display: inline-grid;
+  place-items: center;
+  width: var(--size);
+  height: var(--size);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(255,255,255,0.04);
+  color: #fff;
+  text-decoration: none;
+  transition:
+    transform 260ms cubic-bezier(.2,.9,.2,1),
+    box-shadow 260ms cubic-bezier(.2,.9,.2,1),
+    background 260ms ease,
+    color 180ms linear;
+  -webkit-tap-highlight-color: transparent;
+  position: relative;
+  overflow: visible;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.02),
+    0 8px 26px rgba(0,0,0,0.62);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* subtle inner glass :before */
+.social-link::before {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border-radius: 999px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.03), transparent 40%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* center the icon */
+.social-link svg,
+.social-link img,
+.social-link i {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  z-index: 1;
+  display: block;
+  line-height: 1;
+  fill: currentColor;
+  color: currentColor;
+}
+
+/* default idle styling */
+.social-link {
+  background: linear-gradient(180deg, rgba(0,0,0,0.42), rgba(255,255,255,0.01));
+}
+
+/* hover/focus: neon lift + glow */
+.social-link:hover,
+.social-link:focus {
+  transform: translateY(-6px) scale(1.03);
+  color: var(--accent-primary); /* green (from your theme) */
+  box-shadow:
+    0 8px 40px rgba(0,255,136,0.16),
+    0 20px 60px rgba(0,0,0,0.6);
+  background: linear-gradient(180deg, rgba(0,255,136,0.04), rgba(0,255,136,0.01));
+  outline: none;
+}
+
+/* keyboard focus ring */
+.social-link:focus {
+  box-shadow:
+    0 10px 50px rgba(0,255,136,0.18),
+    0 0 0 6px rgba(0,255,136,0.06);
+  border-color: rgba(0,255,136,0.18);
+}
+
+/* active press */
+.social-link:active {
+  transform: translateY(-2px) scale(0.98);
+}
+
+/* images should be crisp */
+.social-link img {
+  display: block;
+  object-fit: contain;
+  filter: none;
+}
+
+/* Desktop optimizations */
+@media (max-width:1400px){
+  .hero-container{ 
+    gap:48px; 
+    padding:calc(72px + 48px) 4% 60px; 
+    max-width:1200px; 
+  }
+  .cube-background{ 
+    right:-10%; 
+    width:130%; 
+    height:130%; 
+    transform:translateY(-50%) scale(.9); 
+    opacity:0.9; 
+    filter: blur(.3px) saturate(1.05); 
+  }
+  .hero-right{ 
+    height:560px; 
+  }
+}
+
+/* responsive: stack under resume on narrow screens */
+@media (max-width: 900px) {
+  .hero-cta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .socials {
+    margin-left: 0;
+  }
+}
+
+/* slightly smaller variant for very small screens */
+@media (max-width: 420px) {
+  .social-link { --size: 44px; --icon-size: 18px; }
+}

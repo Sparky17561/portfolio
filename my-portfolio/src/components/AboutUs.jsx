@@ -1,13 +1,14 @@
-// AboutUs.jsx - Block paragraph with scroll color animation
+// AboutUs.jsx - Left paragraph with right image layout
 import React, { useEffect, useRef, useCallback } from "react";
-import "./aboutus.css";
+
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RAW_PARAGRAPH = `Hi — I’m SaiprasadJamdar. I like designing, video editing, VibeCoding (I vibecoded this :) ) and building cool projects; I also do DSA (proud nerd over here). I’ve won Gamethon2k25, was a FYTopper, and mentor classmates on campus. Open to internships and collabs — let’s build something awesome.`;
+const RAW_PARAGRAPH = `Hi — I'm SaiprasadJamdar. I like designing, video editing, VibeCoding (I vibecoded this :) ) and building cool projects; I also do DSA (proud nerd over here). I've won Gamethon2k25, was a FYTopper, and mentor classmates on campus. Open to internships and collabs — let's build something awesome.`;
 
 function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -24,9 +25,10 @@ function makeHighlightedHtml(text, highlights = []) {
   return out;
 }
 
-export default function AboutUs({ highlights = ["Saiprasad_Jamdar", "front-end", "ML", "DSA", "Gamethon2k25"] }) {
+export default function AboutUs({ highlights = ["SaiprasadJamdar", "VibeCoding", "DSA", "Gamethon2k25", "FYTopper"] }) {
   const rootRef = useRef(null);
   const paraRef = useRef(null);
+  const imageRef = useRef(null);
   const splitRef = useRef(null);
   const scrollTriggerRef = useRef(null);
 
@@ -67,13 +69,10 @@ export default function AboutUs({ highlights = ["Saiprasad_Jamdar", "front-end",
       if (!split.words || split.words.length === 0) return;
 
       // Identify highlighted words and apply classes
-      const regularWords = [];
-      const highlightedWords = [];
-
       split.words.forEach((word) => {
         word.style.cssText = `
           display: inline;
-          margin-right: 0.4em;
+          margin-right: 0.35em;
           color: #666666;
         `;
 
@@ -82,19 +81,16 @@ export default function AboutUs({ highlights = ["Saiprasad_Jamdar", "front-end",
             word.classList.contains('highlight') ||
             word.innerHTML.includes('class="highlight"') ||
             highlights.some(h => word.textContent.toLowerCase().includes(h.toLowerCase()))) {
-          highlightedWords.push(word);
           word.classList.add('word-highlight');
-        } else {
-          regularWords.push(word);
         }
       });
 
       // Create scroll-triggered animation
       const st = ScrollTrigger.create({
         trigger: rootRef.current,
-        start: "top 65%", // Start very early
-        end: "top -25%", // End very quickly
-        scrub: 10, // Super fast animation
+        start: "top 70%", 
+        end: "top -30%", 
+        scrub: 8, 
         onUpdate: (self) => {
           const progress = self.progress;
           const wordsToReveal = Math.floor(progress * split.words.length);
@@ -124,6 +120,30 @@ export default function AboutUs({ highlights = ["Saiprasad_Jamdar", "front-end",
 
       scrollTriggerRef.current = st;
 
+      // Image animation
+      if (imageRef.current) {
+        gsap.fromTo(imageRef.current, 
+          {
+            opacity: 0,
+            scale: 0.8,
+            y: 50
+          },
+          {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: rootRef.current,
+              start: "top 80%",
+              end: "top 20%",
+              toggleActions: "play none none reverse"
+            }
+          }
+        );
+      }
+
       // Refresh ScrollTrigger
       gsap.delayedCall(0.1, () => {
         ScrollTrigger.refresh();
@@ -140,19 +160,63 @@ export default function AboutUs({ highlights = ["Saiprasad_Jamdar", "front-end",
     };
   }, [highlights, cleanupAnimation, setupAnimation]);
 
+  const handleImageClick = useCallback(() => {
+    if (imageRef.current) {
+      gsap.to(imageRef.current, {
+        scale: 0.95,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1,
+        ease: "power2.inOut"
+      });
+    }
+  }, []);
+
+  const handleImageError = useCallback((e) => {
+    console.warn("Image failed to load:", e.target.src);
+    e.target.style.display = 'none';
+  }, []);
+
   return (
     <section className="aboutus-section" ref={rootRef}>
       <div className="aboutus-inner">
         <h2 className="aboutus-title">About me</h2>
 
-        <div className="aboutus-text">
-          <p className="fade-text" ref={paraRef} aria-live="polite">
-            {RAW_PARAGRAPH}
-          </p>
-        </div>
+        <div className="aboutus-content">
+          <div className="aboutus-text">
+            <p className="fade-text" ref={paraRef} aria-live="polite">
+              {RAW_PARAGRAPH}
+            </p>
+            
+            <div className="aboutus-small">
+              <p>A developer passionate about creating meaningful digital experiences. Currently seeking internships and collaboration opportunities.</p>
+            </div>
+          </div>
 
-        <div className="aboutus-small">
-          <p>A developer passionate about creating meaningful digital experiences. Currently seeking internships and collaboration opportunities.</p>
+          <div className="aboutus-image">
+            <div 
+              className="profile-image-container" 
+              ref={imageRef}
+              onClick={handleImageClick}
+              role="button"
+              tabIndex={0}
+              aria-label="Profile photo of Saiprasad Jamdar"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  handleImageClick();
+                }
+              }}
+            >
+              <img 
+                src="/images/portfolio_img.jpg" 
+                alt="Saiprasad Jamdar - Developer and Designer"
+                className="profile-image"
+                loading="lazy"
+                onError={handleImageError}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </section>

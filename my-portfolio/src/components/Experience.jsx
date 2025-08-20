@@ -1,5 +1,5 @@
 import React from "react";
-import "./experience.css";
+
 
 /* Tiny inline SVG icons (no external deps) */
 const MonitorIcon = ({ size = 18 }) => (

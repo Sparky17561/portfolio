@@ -1,6 +1,6 @@
 // Contact.jsx
 import React from "react";
-import "./contact.css";
+
 
 const LINKS = {
   linkedin: "https://linkedin.com/in/saiprasad",

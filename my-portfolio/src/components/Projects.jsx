@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import "./Project.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,10 +16,11 @@ const Projects = () => {
   const line2Ref = useRef(null);
   const linkRef = useRef(null);
   const introRef = useRef(null);
-  const titleRef = useRef(null); // new: title element ref
-  const stackItemRefs = useRef([]); // for micro interactions
+  const titleRef = useRef(null);
+  const stackItemRefs = useRef([]);
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const currentIndexRef = useRef(0);
 
   // quickTo for link hover parallax
@@ -29,58 +29,74 @@ const Projects = () => {
 
   const projects = [
     {
-      title: "E-Commerce Platform",
-      description:
-        "A full-stack e-commerce solution...loremskdnvkdnnqdfidsssssssssssssssssssssssssssdddddddddddddddddddddddddddddddddddddddddddddddd",
-      stack: ["React", "Node.js", "MongoDB"],
+      title: "Zaikaa - Django Mobile Booking Web App",
+      mobileTitle: "Zaikaa App",
+      description: "A food ordering application for 'Fun and Fair Systems' that optimizes queue management and handles secure online transactions using Razorpay, driving a 40% year-over-year profit increase. It features multi-role admin panels to manage over 1,000 transactions and 200 active users.",
+      mobileDescription: "Food ordering app with queue optimization and secure payments via Razorpay.",
+      stack: ["Django", "HTML", "CSS", "JS", "AWS", "Nginx", "Gunicorn", "PostgreSQL", "Razorpay"],
       url: "#",
-      image:
-        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=800&fit=crop&crop=center",
+      image: "image-1.png"
     },
     {
-      title: "Task Management App",
-      description: "Collaborative project management...",
-      stack: ["Vue.js", "Express"],
+      title: "ColdCraft - AI-Powered Cold Mail Generator",
+      mobileTitle: "ColdCraft",
+      description: "An AI-powered platform that takes a job URL, scrapes relevant information, and generates a personalized cold email using AI. It integrates with an SMTP server to automatically send the tailored outreach message directly to the HR contact.",
+      mobileDescription: "AI platform that generates personalized cold emails from job URLs and sends them automatically.",
+      stack: ["Django", "HTML", "CSS", "JS", "Langchain", "GROQ API", "Firebase"],
       url: "#",
-      image:
-        "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&h=800&fit=crop&crop=center",
+      image: "image-2.png"
     },
     {
       title: "Analytics Dashboard",
-      description: "Interactive data visualization platform...",
+      mobileTitle: "Analytics Dashboard",
+      description: "Interactive data visualization platform with real-time analytics and comprehensive reporting features for business intelligence.",
+      mobileDescription: "Interactive data visualization platform with real-time analytics.",
       stack: ["React", "D3.js"],
       url: "#",
-      image:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop&crop=center",
     },
     {
       title: "Mobile Banking App",
-      description: "Secure mobile banking application...",
+      mobileTitle: "Banking App",
+      description: "Secure mobile banking application with biometric authentication, real-time transactions, and comprehensive financial management tools.",
+      mobileDescription: "Secure mobile banking app with biometric authentication and real-time transactions.",
       stack: ["React Native", "Firebase"],
       url: "#",
-      image:
-        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1200&h=800&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1521791136060-8f3c1b2d4c5f?w=1200&h=800&fit=crop&crop=center",
     },
     {
       title: "E-Commerce Platform",
-      description:
-        "A full-stack e-commerce solution...loremskdnvkdnnqdfidsssssssssssssssssssssssssssdddddddddddddddddddddddddddddddddddddddddddddddd",
+      mobileTitle: "E-Commerce Platform",
+      description: "A full-stack e-commerce solution with advanced inventory management, payment processing, and customer analytics dashboard.",
+      mobileDescription: "Full-stack e-commerce solution with inventory management and payment processing.",
       stack: ["React", "Node.js", "MongoDB"],
       url: "#",
-      image:
-        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=800&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&h=800&fit=crop&crop=center",
     },
     {
       title: "Task Management App",
-      description: "Collaborative project management...",
+      mobileTitle: "Task Manager",
+      description: "Collaborative project management platform with team coordination, deadline tracking, and productivity analytics for enhanced workflow optimization.",
+      mobileDescription: "Collaborative project management platform with team coordination and deadline tracking.",
       stack: ["Vue.js", "Express"],
       url: "#",
-      image:
-        "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&h=800&fit=crop&crop=center",
+      image: "https://images.unsplash.com/photo-1551650975-87deedd944c3?w=1200&h=800&fit=crop&crop=center",
     },
   ];
 
   const totalSlides = projects.length;
+
+  // Detect mobile screen size
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     currentIndexRef.current = currentSlideIndex;
@@ -324,7 +340,7 @@ const Projects = () => {
         if (hoverTweens.has(node)) hoverTweens.get(node).kill();
         const t = gsap.to(node, {
           scale: 1.06,
-          boxShadow: "0 8px 30px rgba(46,224,106,0.08)",
+          boxShadow: "0 8px 30px rgba(255,255,255,0.08)",
           duration: 0.28,
           ease: "power3.out",
           force3D: true,
@@ -353,8 +369,8 @@ const Projects = () => {
     const titleEl = titleRef.current;
     let titleAnim = null;
     if (titleEl) {
-      // apply inline gradient styles (greens) and clip
-      titleEl.style.backgroundImage = "linear-gradient(90deg,#a6ffda 0%,#6ef3a0 40%,#2fd77f 70%,#bfffe0 100%)";
+      // apply inline gradient styles (white to grey) and clip
+      titleEl.style.backgroundImage = "linear-gradient(90deg,#ffffff 0%,#e5e5e5 25%,#cccccc 50%,#e5e5e5 75%,#ffffff 100%)";
       titleEl.style.backgroundSize = "300% 100%";
       titleEl.style.webkitBackgroundClip = "text";
       titleEl.style.backgroundClip = "text";
@@ -414,29 +430,45 @@ const Projects = () => {
         const titleEl = document.querySelector(".project-title-text");
         const descEl = document.querySelector(".project-description-text");
         const stackEl = document.querySelector(".project-stack-items");
-        if (titleEl) titleEl.textContent = project.title;
-        if (descEl) descEl.textContent = project.description;
+        
+        if (titleEl) {
+          titleEl.textContent = isMobile ? project.mobileTitle : project.title;
+        }
+        
+        if (descEl) {
+          descEl.textContent = isMobile ? project.mobileDescription : project.description;
+        }
+        
         if (stackEl) {
-          stackEl.innerHTML = "";
-          project.stack.forEach((s) => {
-            const span = document.createElement("span");
-            span.className = "project-stack-item";
-            span.textContent = s;
-            // pointer events enabled so micro interactions work
-            span.style.pointerEvents = "auto";
-            stackEl.appendChild(span);
-          });
+          if (isMobile) {
+            // Hide stack on mobile
+            stackEl.style.display = 'none';
+          } else {
+            // Show stack on desktop
+            stackEl.style.display = 'flex';
+            stackEl.innerHTML = "";
+            project.stack.forEach((s) => {
+              const span = document.createElement("span");
+              span.className = "project-stack-item";
+              span.textContent = s;
+              // pointer events enabled so micro interactions work
+              span.style.pointerEvents = "auto";
+              stackEl.appendChild(span);
+            });
+          }
         }
 
-        // reattach micro interactions for new stack items (quick rebind)
-        requestAnimationFrame(() => {
-          const newStackNodes = Array.from(document.querySelectorAll(".project-stack-item"));
-          // simple micro interaction: scale on hover using gsap
-          newStackNodes.forEach((node) => {
-            node.onmouseenter = () => gsap.to(node, { scale: 1.06, boxShadow: "0 8px 30px rgba(46,224,106,0.08)", duration: 0.22 });
-            node.onmouseleave = () => gsap.to(node, { scale: 1, boxShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.22 });
+        // reattach micro interactions for new stack items (only on desktop)
+        if (!isMobile) {
+          requestAnimationFrame(() => {
+            const newStackNodes = Array.from(document.querySelectorAll(".project-stack-item"));
+            // simple micro interaction: scale on hover using gsap
+            newStackNodes.forEach((node) => {
+              node.onmouseenter = () => gsap.to(node, { scale: 1.06, boxShadow: "0 8px 30px rgba(255,255,255,0.08)", duration: 0.22 });
+              node.onmouseleave = () => gsap.to(node, { scale: 1, boxShadow: "0 0 0 rgba(0,0,0,0)", duration: 0.22 });
+            });
           });
-        });
+        }
 
         gsap.fromTo(
           [".project-title-text", ".project-description-text", ".project-stack-items"],
@@ -538,7 +570,7 @@ const Projects = () => {
     updateIndicators(0);
     updateLink(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="projects-section" ref={containerRef}>
@@ -551,7 +583,7 @@ const Projects = () => {
         <div className="project-slider">
           {projects.map((p, i) => (
             <div className="project-slide" id={`project-slide-${i}`} key={i}>
-              <img src={p.image} alt={p.title} />
+              <img src={`/images/${p.image}`} alt={p.title} />
             </div>
           ))}
 
@@ -571,7 +603,7 @@ const Projects = () => {
               <div className="project-title">
                 {/* assign ref to title so we can apply inline gradient and animation */}
                 <div ref={titleRef} className="project-title-text" style={{ willChange: "background-position" }}>
-                  {projects[0].title}
+                  {isMobile ? projects[0].mobileTitle : projects[0].title}
                 </div>
               </div>
 
@@ -597,18 +629,18 @@ const Projects = () => {
                     wordBreak: "break-word",
                   }}
                 >
-                  {projects[0].description}
+                  {isMobile ? projects[0].mobileDescription : projects[0].description}
                 </div>
               </div>
 
-              <div className="project-stack" style={{ marginTop: 18 }}>
+              <div className={`project-stack ${isMobile ? 'mobile-hidden' : ''}`} style={{ marginTop: 18, display: isMobile ? 'none' : 'block' }}>
                 <div className="project-stack-label">Tech Stack</div>
                 <div
                   className="project-stack-items"
                   // allow pointer events on stack container so chips can be hovered
                   style={{ pointerEvents: "auto" }}
                 >
-                  {projects[0].stack.map((s, idx) => (
+                  {!isMobile && projects[0].stack.map((s, idx) => (
                     <span
                       key={idx}
                       className="project-stack-item"
@@ -641,7 +673,7 @@ const Projects = () => {
           <div className="project-link-wrapper" ref={linkWrapperRef}>
             <a href={projects[0].url} target="_blank" rel="noreferrer">
               <svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 100 100">
-                <path ref={pathRef} d="M 50,10 A40,40 0 1,1 49.999,10" stroke="#00ff88" strokeWidth="1" fill="none" />
+                <path ref={pathRef} d="M 50,10 A40,40 0 1,1 49.999,10" stroke="#ffffff" strokeWidth="1" fill="none" />
               </svg>
               <div className="project-link-label">
                 <div className="project-line project-line-1" ref={line1Ref}>

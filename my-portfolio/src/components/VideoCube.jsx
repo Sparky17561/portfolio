@@ -56,7 +56,7 @@ function VideoCube() {
       )}
       <video
         ref={videoRef}
-        className="cube-video"
+        className="cube-video" // Use either "cube-video" or "cube-video-centered"
         aria-hidden="true"
         preload="auto"
         playsInline
@@ -66,9 +66,6 @@ function VideoCube() {
         <source src={cubeVideo} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
-      
-      {/* Overlay to hide watermark */}
-
     </div>
   );
 }

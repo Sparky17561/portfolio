@@ -1,0 +1,75 @@
+/* =================== RESUME BUTTON STYLES =================== */
+
+.resume-btn-wrapper{ 
+  display:inline-block; 
+  animation:slideInUp 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.8s forwards; 
+  opacity:1; 
+  transform:translateY(0px); 
+  position: relative;
+  z-index: 100;
+}
+
+.resume-btn{ 
+  display:inline-flex; 
+  align-items:center; 
+  padding:16px 36px; 
+  border-radius:30px; 
+  background:var(--gradient-primary);
+  color:#111; 
+  text-decoration:none; 
+  font-weight:700; 
+  font-size:16px; 
+  position:relative; 
+  overflow:hidden; 
+  box-shadow:0 8px 32px rgba(0,255,136,0.2), 0 2px 8px rgba(0,255,136,0.3); 
+  border:1px solid rgba(51,255,170,0.4);
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  letter-spacing: 0.5px;
+  font-family: 'Inter', system-ui, sans-serif;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.resume-btn::before{ 
+  content:''; 
+  position:absolute; 
+  top:0; 
+  left:-100%; 
+  width:100%; 
+  height:100%; 
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); 
+  transition:left 0.6s ease; 
+  pointer-events: none;
+}
+
+.resume-btn:hover {
+  transform: translateY(-4px) scale(1.05); 
+  box-shadow: 
+    0 16px 48px rgba(0,255,136,0.4), 
+    0 8px 16px rgba(0,255,136,0.5),
+    0 0 32px rgba(0,255,136,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, var(--accent-primary-light) 0%, var(--accent-primary) 50%, var(--accent-secondary) 100%);
+  
+  text-shadow: 
+    0 0 12px rgba(255,255,255,0.8), 
+    0 0 24px rgba(255,255,255,0.6),
+    0 0 36px rgba(255,255,255,0.4);
+  color: #000;
+}
+
+.resume-btn:hover::before{ left:100% }
+
+.resume-btn:active{ 
+  transform: translateY(-1px) scale(1.02); 
+  transition: all 0.1s ease;
+}
+
+/* Touch-friendly improvements for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .resume-btn {
+    -webkit-tap-highlight-color: rgba(0,255,136,0.2);
+    padding: 18px 32px;
+    font-size: 17px;
+  }
+}
