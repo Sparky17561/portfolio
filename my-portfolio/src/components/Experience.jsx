@@ -27,32 +27,31 @@ const BriefcaseIcon = ({ size = 18 }) => (
 /* Data for timeline */
 const TIMELINE = [
   {
-    role: "Senior Frontend Developer",
-    company: "Tech Company Inc.",
-    period: "2024 — Present",
-    Icon: MonitorIcon,
-    accent: "#00ff88",
-    description:
-      "Architecting design systems, leading frontend teams, and crafting performant micro-interactions that feel delightful.",
+    "role": "Upcoming Intern",
+    "company": "Wissen Technology",
+    "period": "Jan 2026 - Jul 2026",
+    "Icon": "MonitorIcon",
+    "accent": "#00ff88",
+    "description": "Software Developer Intern"
   },
   {
-    role: "Full Stack Developer",
-    company: "Startup Solutions",
-    period: "2022 — 2024",
-    Icon: CodeIcon,
-    accent: "#00e676",
-    description:
-      "Built scalable APIs, real-time features and improved developer DX. Mentored engineers to ship fast with quality.",
-  },
-  {
-    role: "Frontend Developer",
-    company: "Digital Agency",
-    period: "2020 — 2022",
-    Icon: BriefcaseIcon,
-    accent: "#00c853",
-    description:
-      "Delivered responsive UI, polished motion, and accessible experiences for enterprise and consumer clients.",
-  },
+    "role": "Python Developer Intern",
+    "company": "Mira Advanced Engineering (Remote)",
+    "period": "Jan 2024 - Feb 2024",
+    "Icon": "CodeIcon",
+    "accent": "#00e676",
+    "description": "Designed and implemented desktop applications, including an Employee Management System, BMI Calculator, and EMI Calculator, using Tkinter and TtkBootstrap. Enhanced user interfaces with Figma designs and CustomTkinter for intuitive user experiences. Delivered solutions in a task-oriented, time-constrained internship model."
+  }
+
+  // {
+  //   role: "Frontend Developer",
+  //   company: "Digital Agency",
+  //   period: "2020 — 2022",
+  //   Icon: BriefcaseIcon,
+  //   accent: "#00c853",
+  //   description:
+  //     "Delivered responsive UI, polished motion, and accessible experiences for enterprise and consumer clients.",
+  // },
 ];
 
 function TimelineItem({ item, side, index }) {

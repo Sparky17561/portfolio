@@ -19,7 +19,9 @@
   --text-secondary: #ffffff;
   --text-muted: #ffffff;
   --robot-shift: 14%;
-  --bg: #0b0b0b;
+  /* Force pure black so robot and page blend perfectly */
+  --bg: #000000;
+  --bg-alt: #000000;
   --accent: #00ff88;
   --metal-white: #ffffff;
   --metal-mid: #e6e9ec;

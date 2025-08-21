@@ -8,10 +8,10 @@ import React from "react";
  */
 
 const TAGS = [
-  "HTML", "CSS", "JavaScript", "ReactJS", "TypeScript", "NodeJS", "Express",
-  "Next.js", "Vite", "Tailwind", "Sass", "GraphQL", "Three.js", "D3", "Figma",
-  "Photoshop", "Premiere Pro", "Jest", "Cypress", "Docker", "CI/CD", "AWS",
-  "Prisma", "Postgres", "MongoDB", "WebGL", "Accessibility", "Performance",
+  "HTML", "CSS", "JavaScript", "ReactJS", "Python", "NodeJS", "Express",
+  "Django", "Vite", "Bootstrap", "Gsap", "Lenis", "Three.js", "Shaders", "Figma",
+  "MySQL", "CapCut", "Langchain", "Machine Learning", "Deep Learning", "NLP", "AWS",
+  "Prisma", "PostgreSQL", "MongoDB", "WebGL", "Gunicorn", "Nginx",
 ];
 
 function MarqueeRow({ tags, speed = 20, reverse = false, rowIndex = 0 }) {

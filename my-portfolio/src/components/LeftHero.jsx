@@ -8,13 +8,6 @@ import { FaLinkedin, FaInstagram, FaGithub } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 
 export default function LeftHero() {
-  const sentences = [
-    "Hey — I'm Saiprasad Jamdar, final year BE Computer Engineering @ SAKEC.",
-    "I build web apps, tinker with ML models, and automate boring tasks.",
-    "Open to internships and collaborations — let's build something cool together."
-  ];
-
-  // replace URLs below with your real accounts
   const LINKS = {
     linkedin: "https://www.linkedin.com/in/your-profile",
     instagram: "https://www.instagram.com/your-profile",
@@ -23,18 +16,41 @@ export default function LeftHero() {
   };
 
   return (
-    <div className="left-hero-inner">
-      <h1 className="hero-name gradient-text" aria-label="Saiprasad Jamdar">
+    <div className="left-hero-inner" aria-labelledby="hero-heading">
+      <h1 id="hero-heading" className="hero-name gradient-text" aria-label="Saiprasad Jamdar">
         <span className="name-line">Saiprasad</span>
         <span className="name-line">Jamdar</span>
       </h1>
 
+      {/* Creative futuristic meta card under the name */}
+      <div className="hero-meta" aria-label="Title, location and contact">
+        <div className="meta-content">
+          <div className="meta-row">
+            <span className="hero-role">Software Developer</span>
+            <span className="meta-divider" aria-hidden="true" />
+            <span className="hero-location">Kalyan, Maharashtra, India</span>
+          </div>
+
+          <div className="meta-row contact-row">
+            <a
+              className="hero-email"
+              href="mailto:studentjamdar@gmail.com"
+              title="Email Saiprasad"
+              aria-label="Email studentjamdar at gmail dot com"
+            >
+              studentjamdar@gmail.com
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* optional typewriter area (still commented out in original) */}
       {/* <div className="hero-sub">
         <Typewriter sentences={sentences} />
       </div> */}
 
-      <div className="hero-cta">
-        <ResumeButton href="/resume.pdf" />
+      <div className="hero-cta" role="group" aria-label="Call to actions and social links">
+        <ResumeButton href="/resume.pdf" className="resume-btn-hero" />
 
         <nav className="socials" aria-label="Social links">
           <a

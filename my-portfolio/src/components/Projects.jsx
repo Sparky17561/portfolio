@@ -46,15 +46,15 @@ const Projects = () => {
       url: "#",
       image: "image-2.png"
     },
-    // {
-    //   title: "Analytics Dashboard",
-    //   mobileTitle: "Analytics Dashboard",
-    //   description: "Interactive data visualization platform with real-time analytics and comprehensive reporting features for business intelligence.",
-    //   mobileDescription: "Interactive data visualization platform with real-time analytics.",
-    //   stack: ["React", "D3.js"],
-    //   url: "#",
-    //   image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=800&fit=crop&crop=center",
-    // },
+     {
+    "title": "NightLife Personal Portfolio",
+    "mobileTitle": "NightLife Portfolio",
+    "description": "A visually dynamic and interactive personal portfolio showcasing projects with custom animations and 3D graphics, creating a 'nightlife' aesthetic.",
+    "mobileDescription": "A dynamic personal portfolio with custom animations and 3D graphics.",
+    "stack": ["React", "GSAP", "Shaders", "Three.js", "Spline", "Lenis"],
+    "url": "#",
+    "image": "image-3.png"
+  },
     // {
     //   title: "Mobile Banking App",
     //   mobileTitle: "Banking App",

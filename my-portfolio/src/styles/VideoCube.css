@@ -1,23 +1,29 @@
 /* =================== VIDEO CUBE STYLES =================== */
+
+/* ========== DESKTOP VIDEO CUBE BACKGROUND ========== */
+.cube-background,
 .video-cube-container {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  top: 35%;
+  right: -20%;
+  width: 135%;
+  max-width: 1000px;
+  height: 135%;
+  max-height: 1000px;
+  transform: translateY(-50%) scale(0.62);
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 16px;
   z-index: 1;
-  transform: translateZ(0);
+  pointer-events: none;
 }
 
 .cube-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 12px;
+  border-radius: 16px;
   opacity: 0.85;
-  filter: blur(0.5px) saturate(1.1) contrast(1.05);
+  filter: blur(0.5px) saturate(1.3) contrast(1.1) brightness(1.2);
   mix-blend-mode: screen;
   transform: translateZ(0);
   will-change: transform, opacity;
@@ -36,4 +42,148 @@
   flex-direction: column;
   align-items: center;
   gap: 10px;
+}
+
+.loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(0,255,136,0.3);
+  border-top: 3px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Desktop optimizations */
+@media (max-width:1400px){
+  .cube-background,
+  .video-cube-container{ 
+    right:-10%; 
+    width:130%; 
+    height:130%; 
+    transform:translateY(-50%) scale(.9); 
+  }
+  
+  .cube-video {
+    filter: blur(.3px) saturate(1.2) contrast(1.08) brightness(1.15);
+  }
+}
+
+/* Mobile Layout - Hero Section Full Coverage */
+@media (max-width: 900px) {
+  .cube-background,
+  .video-cube-container {
+    position: fixed; /* Back to fixed for full coverage */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; /* Full viewport coverage */
+    max-width: none;
+    max-height: none;
+    transform: none;
+    z-index: 0;
+    overflow: hidden;
+    border-radius: 0;
+  }
+  
+  .cube-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.4;
+    filter: none;
+    mix-blend-mode: normal;
+    min-height: 100vh;
+  }
+  
+  /* Hide video on non-hero sections */
+  .about-section ~ .cube-background,
+  .about-section ~ .video-cube-container,
+  .projects-section ~ .cube-background,
+  .projects-section ~ .video-cube-container,
+  .skills-section ~ .cube-background,
+  .skills-section ~ .video-cube-container,
+  .contact-section ~ .cube-background,
+  .contact-section ~ .video-cube-container {
+    display: none;
+  }
+  
+  /* Ensure hero section content is above video */
+  .hero-section {
+    position: relative;
+    min-height: 100vh;
+    z-index: 1;
+  }
+  
+  /* Ensure all content stays above video */
+  .hero-content,
+  .main-content {
+    position: relative;
+    z-index: 10;
+  }
+  
+  /* Ensure other sections have black background and are above video */
+  .about-section,
+  .projects-section,
+  .skills-section,
+  .contact-section,
+  section:not(.hero-section) {
+    background-color: #000000;
+    position: relative;
+    z-index: 15;
+  }
+}
+
+/* Full viewport coverage - maintain dimensions */
+@media (max-width: 600px) {
+  .cube-background,
+  .video-cube-container {
+    width: 100vw;
+    height: 100vh; /* Full height coverage */
+    left: 0;
+    top: 0;
+  }
+  
+  .cube-video {
+    opacity: 0.35;
+  }
+}
+
+/* Full viewport coverage for very small screens */
+@media (max-width: 420px) {
+  .cube-background,
+  .video-cube-container {
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+  }
+  
+  .cube-video {
+    opacity: 0.3;
+    min-height: 100vh;
+  }
+}
+
+/* Landscape phone adjustments - full coverage */
+@media (max-width: 900px) and (orientation: landscape) and (max-height: 500px) {
+  .cube-background,
+  .video-cube-container {
+    width: 100vw;
+    height: 100vh;
+    left: 0;
+    top: 0;
+  }
+  
+  .cube-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
 }
