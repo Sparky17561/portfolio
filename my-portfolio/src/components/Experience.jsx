@@ -26,33 +26,26 @@ const BriefcaseIcon = ({ size = 18 }) => (
 /* Data for timeline - FIXED: Use actual component references instead of strings */
 const TIMELINE = [
   {
-    "role": "Upcoming Intern",
-    "company": "Wissen Technology",
-    "period": "Jan 2026 - Jul 2026",
-    "Icon": MonitorIcon, // Changed from "MonitorIcon" string to actual component
-    "accent": "#00ff88",
-    "description": "Software Developer Intern"
+    role: "Upcoming Intern",
+    company: "Wissen Technology",
+    period: "Jan 2026 - Jul 2026",
+    Icon: MonitorIcon,
+    accent: "#00ff88",
+    description: "Software Developer Intern",
+    link: "#"
   },
   {
-    "role": "Python Developer Intern",
-    "company": "Mira Advanced Engineering (Remote)",
-    "period": "Jan 2024 - Feb 2024",
-    "Icon": CodeIcon, // Changed from "CodeIcon" string to actual component
-    "accent": "#00e676",
-    "description": "Designed and implemented desktop applications, including an Employee Management System, BMI Calculator, and EMI Calculator, using Tkinter and TtkBootstrap. Enhanced user interfaces with Figma designs and CustomTkinter for intuitive user experiences. Delivered solutions in a task-oriented, time-constrained internship model."
-  }
-
-  // Example of how to add more items:
-  // {
-  //   role: "Frontend Developer",
-  //   company: "Digital Agency",
-  //   period: "2020 — 2022",
-  //   Icon: BriefcaseIcon, // Use actual component reference
-  //   accent: "#00c853",
-  //   description:
-  //     "Delivered responsive UI, polished motion, and accessible experiences for enterprise and consumer clients.",
-  // },
+    role: "Python Developer Intern",
+    company: "Mira Advanced Engineering (Remote)",
+    period: "Jan 2024 - Feb 2024",
+    Icon: CodeIcon,
+    accent: "#00e676",
+    description: "Designed and implemented desktop applications ...",
+    // Replace the placeholder below with the Mira certificate / project URL (GitHub, Drive link, LinkedIn post, etc.)
+    link: "https://www.linkedin.com/posts/saiprasad-jamdar_python-internship-certificate-activity-7166684181572403200-qvvA?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD_9CmQBaKpho7VahiwxaLLmRw0aF3ggvC8"
+  },
 ];
+
 
 function TimelineItem({ item, side, index }) {
   const { Icon, accent } = item;
@@ -95,11 +88,24 @@ function TimelineItem({ item, side, index }) {
         <p className="desc">{item.description}</p>
 
         <div className="card-actions">
-          {/* Single button as requested — update href to wherever you want the post to open */}
-          <a className="action-primary" href="#post" aria-label="Show post">
-            Show post
-          </a>
-        </div>
+  {item.link ? (
+    <a
+      className="action-primary"
+      href={item.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={(e) => {
+        // prevent router from hijacking navigation in SPAs and ensure a real new tab
+        e.preventDefault();
+        window.open(item.link, "_blank", "noopener,noreferrer");
+      }}
+      aria-label={`Open ${item.company} post or certificate`}
+    >
+      View post
+    </a>
+  ) : null}
+</div>
+
       </article>
     </div>
   );

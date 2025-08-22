@@ -7,7 +7,7 @@ import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RAW_PARAGRAPH = `Hi — I'm SaiprasadJamdar. I like designing, video editing, VibeCoding (I vibecoded this :) ) and building cool projects; I also do DSA (proud nerd over here). I've won Gamethon2k25, was a FYTopper, and mentor classmates on campus. Open to internships and collabs — let's build something awesome.`;
+const RAW_PARAGRAPH = `Hi — I’m Saiprasad_Jamdar. I build Backend systems, AI applications and ship full-stack products that solve real problems. Gamethon2k25 winner and FYTopper; I mentor peers and enjoy competitive_programming. Let's Connect and make something Awesome`;
 
 function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -217,7 +217,7 @@ export default function AboutUs({ highlights = ["SaiprasadJamdar", "VibeCoding",
             </p>
             
             <div className="aboutus-small">
-              <p>A developer passionate about creating meaningful digital experiences. Currently seeking internships and collaboration opportunities.</p>
+              <p>A developer passionate about creating meaningful digital experiences. </p>
             </div>
           </div>
 

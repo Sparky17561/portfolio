@@ -34,7 +34,7 @@ const Projects = () => {
       description: "A food ordering application for 'Fun and Fair Systems' that optimizes queue management and handles secure online transactions using Razorpay, driving a 40% year-over-year profit increase. It features multi-role admin panels to manage over 1,000 transactions and 200 active users.",
       mobileDescription: "Food ordering app with queue optimization and secure payments via Razorpay.",
       stack: ["Django", "HTML", "CSS", "JS", "AWS", "Nginx", "Gunicorn", "PostgreSQL", "Razorpay"],
-      url: "#",
+      url: "https://github.com/Sparky17561/zaikaa",
       image: "image-1.png"
     },
     {
@@ -43,7 +43,7 @@ const Projects = () => {
       description: "An AI-powered platform that takes a job URL, scrapes relevant information, and generates a personalized cold email using AI. It integrates with an SMTP server to automatically send the tailored outreach message directly to the HR contact.",
       mobileDescription: "AI platform that generates personalized cold emails from job URLs and sends them automatically.",
       stack: ["Django", "HTML", "CSS", "JS", "Langchain", "GROQ API", "Firebase"],
-      url: "#",
+      url: "https://github.com/Sparky17561/cold_mail_generator",
       image: "image-2.png"
     },
      {
@@ -52,7 +52,7 @@ const Projects = () => {
     "description": "A visually dynamic and interactive personal portfolio showcasing projects with custom animations and 3D graphics, creating a 'nightlife' aesthetic.",
     "mobileDescription": "A dynamic personal portfolio with custom animations and 3D graphics.",
     "stack": ["React", "GSAP", "Shaders", "Three.js", "Spline", "Lenis"],
-    "url": "#",
+    "url": "https://github.com/Sparky17561/portfolio",
     "image": "image-3.png"
   },
     // {

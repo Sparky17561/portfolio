@@ -9,10 +9,10 @@ import { SiLeetcode } from "react-icons/si";
 
 export default function LeftHero() {
   const LINKS = {
-    linkedin: "https://www.linkedin.com/in/your-profile",
-    instagram: "https://www.instagram.com/your-profile",
-    github: "https://github.com/your-profile",
-    leetcode: "https://leetcode.com/your-profile"
+    linkedin: "https://www.linkedin.com/in/saiprasad-jamdar",
+    instagram: "https://www.instagram.com/black__kitana/",
+    github: "https://github.com/Sparky17561",
+    leetcode: "https://leetcode.com/u/Black_Kitana/"
   };
 
   return (
@@ -50,7 +50,7 @@ export default function LeftHero() {
       </div> */}
 
       <div className="hero-cta" role="group" aria-label="Call to actions and social links">
-        <ResumeButton href="/resume.pdf" className="resume-btn-hero" />
+        <ResumeButton href="/Saiprasad_Ulhas_Jamdar_Resume.pdf" className="resume-btn-hero" />
 
         <nav className="socials" aria-label="Social links">
           <a
