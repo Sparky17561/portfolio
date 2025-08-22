@@ -7,6 +7,9 @@ import AboutUs from "./components/AboutUs";
 import Projects from "./components/Projects";
 import MakeSkill from "./components/MakeSkill";
 import Experience from "./components/Experience";
+import Education from "./components/Education"; // New import
+import Achievements from "./components/Achievements";
+import Research from "./components/Research";
 import ContactFooter from "./components/ContactFooter";
 import Preload from "./components/Preload";
 import "./App.css";
@@ -58,12 +61,9 @@ export default function App() {
     setIsClient(true);
   }, []);
 
-  // Lenis smooth scroll setup - ONLY AFTER PRELOADING IS COMPLETE
+  // Lenis smooth scroll setup with scroll limiting
   React.useEffect(() => {
-    // Skip Lenis initialization if:
-    // - Not on client side
-    // - Still preloading
-    // - Window doesn't exist
+    // Skip Lenis initialization if not ready
     if (typeof window === "undefined" || !isClient || isPreloading) return;
 
     // Clean up any existing instances
@@ -78,33 +78,34 @@ export default function App() {
       rafRef.current = null;
     }
 
-    // Wait for DOM to be fully ready
+    // Wait for DOM to be ready
     const initTimeout = setTimeout(() => {
       try {
-        // Ensure document.body and document.documentElement exist
-        if (!document.body || !document.documentElement) {
-          console.warn('DOM not ready for Lenis initialization');
-          return;
-        }
-
-        // Create Lenis instance with safer options
+        // Create simple Lenis instance
         const lenis = new Lenis({
           duration: 1.2,
           easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
           smooth: true,
-          direction: "vertical",
-          gestureDirection: "vertical",
           smoothWheel: true,
           wheelMultiplier: 1.2,
           touchMultiplier: 1.8,
           normalizeWheel: true,
-          autoResize: true,
-          // Only set wrapper/content if they exist
-          ...(document.body && { wrapper: document.body }),
-          ...(document.documentElement && { content: document.documentElement })
+          autoResize: true
         });
 
         lenisRef.current = lenis;
+
+        // Add scroll limiting for contact section
+        lenis.on('scroll', ({ scroll }) => {
+          const contactSection = document.querySelector('#contact');
+          if (contactSection) {
+            const maxScroll = contactSection.offsetTop;
+            // Prevent scrolling past contact section
+            if (scroll > maxScroll) {
+              lenis.scrollTo(maxScroll, { immediate: true });
+            }
+          }
+        });
 
         // Make it globally accessible for Navbar
         if (window) {
@@ -112,7 +113,7 @@ export default function App() {
           window.lenisInstance = lenis;
         }
 
-        // Animation frame loop for smooth scrolling
+        // Animation frame loop
         function raf(time) {
           if (lenisRef.current && !lenisRef.current.destroyed) {
             lenisRef.current.raf(time);
@@ -124,23 +125,20 @@ export default function App() {
         // Start Lenis
         lenis.start();
 
-        console.log('Lenis initialized successfully');
+        console.log('Lenis initialized successfully with scroll limiting');
       } catch (error) {
         console.error("Lenis initialization error:", error);
-        // Don't throw - let app continue without smooth scroll
       }
-    }, 500); // Increased delay for better reliability
+    }, 100); // Shorter delay since we know scrolling works
 
     return () => {
       clearTimeout(initTimeout);
       
-      // Clean up RAF
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
         rafRef.current = null;
       }
       
-      // Clean up Lenis
       if (lenisRef.current && !lenisRef.current.destroyed) {
         try {
           lenisRef.current.destroy();
@@ -150,7 +148,6 @@ export default function App() {
         lenisRef.current = null;
       }
       
-      // Clean up global references
       if (typeof window !== "undefined") {
         window.lenis = null;
         window.lenisInstance = null;
@@ -187,7 +184,7 @@ export default function App() {
         <Preload onComplete={handlePreloadComplete} />
       )}
 
-      {/* Main Content */}
+      {/* Main Content - This container will have a fixed height to prevent over-scrolling */}
       <div className={`main-content ${isPreloading ? 'content-hidden' : 'content-visible'}`}>
         <Navbar />
 
@@ -254,8 +251,32 @@ export default function App() {
           <Experience />
         </section>
 
-        {/* CONTACT FOOTER - This is the last section and should prevent any further scrolling */}
-        <footer id="contact" aria-label="Contact" role="contentinfo" style={{ position: 'relative', zIndex: 10 }}>
+        {/* EDUCATION SECTION - NEW */}
+        <section id="education" style={{ scrollMarginTop: '72px' }}>
+          <Education />
+        </section>
+
+        {/* ACHIEVEMENTS SECTION */}
+        <section id="achievements" style={{ scrollMarginTop: '72px' }}>
+          <Achievements />
+        </section>
+
+        {/* RESEARCH SECTION - NEW */}
+        <section id="research" style={{ scrollMarginTop: '72px' }}>
+          <Research />
+        </section>
+
+        {/* CONTACT FOOTER - This is the final section that should stick at the bottom */}
+        <footer 
+          id="contact" 
+          aria-label="Contact" 
+          role="contentinfo" 
+          style={{ 
+            position: 'relative', 
+            zIndex: 10,
+            minHeight: '100vh' // Ensure it takes full viewport height
+          }}
+        >
           <ContactFooter />
         </footer>
 

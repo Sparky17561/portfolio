@@ -576,3 +576,171 @@
     touch-action: manipulation;
   }
 }
+
+
+/* Add this to your existing hero.css file - Mobile Gradient Aura Enhancement */
+
+/* Mobile-only gradient aura effect for hero name */
+@media (max-width: 900px) {
+  .hero-name,
+  .hero-name.gradient-text {
+    position: relative;
+    overflow: visible;
+  }
+
+  /* Main aura glow behind text */
+  .hero-name::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140%;
+    height: 120%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    
+    /* Layered gradient aura */
+    background: 
+      radial-gradient(ellipse 80% 60% at center, rgba(0, 255, 136, 0.15) 0%, transparent 70%),
+      radial-gradient(ellipse 120% 80% at center, rgba(0, 200, 255, 0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 160% 100% at center, rgba(138, 43, 226, 0.06) 0%, transparent 50%);
+    
+    /* Smooth blur for aura effect */
+    filter: blur(20px);
+    border-radius: 50%;
+    
+    /* Subtle animation */
+    animation: auraFloat 6s ease-in-out infinite;
+    opacity: 0.8;
+  }
+
+  /* Secondary smaller aura for more depth */
+  .hero-name::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 80%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    
+    /* Tighter, brighter inner glow */
+    background: 
+      radial-gradient(ellipse 70% 50% at center, rgba(0, 255, 136, 0.2) 0%, transparent 80%),
+      radial-gradient(ellipse 90% 60% at center, rgba(64, 224, 208, 0.12) 0%, transparent 70%);
+    
+    filter: blur(12px);
+    border-radius: 50%;
+    
+    /* Slightly different timing for dynamic effect */
+    animation: auraFloatInner 4.5s ease-in-out infinite;
+    opacity: 0.9;
+  }
+
+  /* Enhanced text glow for mobile */
+  .hero-name {
+    text-shadow:
+      0 0 20px rgba(0, 255, 136, 0.4),
+      0 0 40px rgba(0, 255, 136, 0.2),
+      0 0 60px rgba(64, 224, 208, 0.15),
+      0 2px 8px rgba(0, 0, 0, 0.6);
+    
+    /* Ensure text stays crisp */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Enhanced first letter glow for mobile */
+  .hero-name .name-line:first-child::first-letter,
+  .hero-name .name-line:last-child::first-letter {
+    text-shadow:
+      0 0 25px rgba(0, 255, 136, 0.8),
+      0 0 50px rgba(0, 255, 136, 0.4),
+      0 0 75px rgba(64, 224, 208, 0.2);
+    animation: mobileLetterGlow 3.5s ease-in-out infinite;
+  }
+}
+
+/* Aura animation keyframes */
+@keyframes auraFloat {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(-48%, -52%) scale(1.05);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translate(-52%, -48%) scale(0.95);
+    opacity: 0.7;
+  }
+  75% {
+    transform: translate(-49%, -51%) scale(1.02);
+    opacity: 0.85;
+  }
+}
+
+@keyframes auraFloatInner {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.9;
+  }
+  33% {
+    transform: translate(-51%, -49%) scale(1.08);
+    opacity: 1;
+  }
+  66% {
+    transform: translate(-49%, -51%) scale(0.92);
+    opacity: 0.8;
+  }
+}
+
+@keyframes mobileLetterGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 25px rgba(0, 255, 136, 0.7),
+      0 0 50px rgba(0, 255, 136, 0.3),
+      0 0 75px rgba(64, 224, 208, 0.15);
+  }
+  50% {
+    text-shadow:
+      0 0 35px rgba(0, 255, 136, 1),
+      0 0 70px rgba(0, 255, 136, 0.5),
+      0 0 100px rgba(64, 224, 208, 0.3);
+  }
+}
+
+/* Smaller mobile devices - reduce effect intensity for performance */
+@media (max-width: 640px) {
+  .hero-name::before {
+    filter: blur(15px);
+    animation-duration: 8s; /* slower for better performance */
+  }
+  
+  .hero-name::after {
+    filter: blur(8px);
+    animation-duration: 6s;
+  }
+  
+  .hero-name {
+    text-shadow:
+      0 0 15px rgba(0, 255, 136, 0.3),
+      0 0 30px rgba(0, 255, 136, 0.15),
+      0 2px 6px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Respect reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .hero-name::before,
+  .hero-name::after {
+    animation: none;
+  }
+  
+  .hero-name .name-line:first-child::first-letter,
+  .hero-name .name-line:last-child::first-letter {
+    animation: none;
+  }
+}

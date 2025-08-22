@@ -13,7 +13,9 @@
 @import './styles/ContactFooter.css';
 @import './styles/AboutUs.css';
 @import './styles/Preloader.css';
-
+@import './styles/Achievements.css';
+@import './styles/Research.css';
+@import './styles/Education.css';
 /* Add this to your App.css file */
 
 /* =================== CUSTOM SCROLLBAR STYLES =================== */

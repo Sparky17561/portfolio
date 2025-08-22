@@ -1,6 +1,7 @@
 /* contact-section.css
-   Fixed footer that sticks to bottom. Video background + overlay panel.
-   Updated to avoid overflow & improve mobile layout.
+   Contact footer that sticks at the bottom of content flow.
+   Video background + overlay panel.
+   Mobile-optimized: no video on mobile devices.
 */
 
 :root {
@@ -8,7 +9,7 @@
   --muted: rgba(255,255,255,0.45);
   --glass-border: rgba(34,197,94,0.04);
   --card-radius: 16px;
-  --contact-footer-height: 360px; /* overwritten by JS at runtime */
+  --contact-footer-height: 100vh;
 }
 
 /* ensure consistent box sizing */
@@ -16,23 +17,24 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-/* The footer is fixed to the bottom and spans full width */
+/* The footer is positioned at the end of content flow */
 .contact-section {
-  position: fixed;
+  position: relative;
   left: 0;
   right: 0;
-  bottom: 0;
   width: 100%;
   height: 100vh;
-  max-height: 85vh;
+  min-height: 100vh;
   z-index: 9999;
-  overflow: hidden; /* hide overflow from video or shadows */
+  overflow: hidden;
   pointer-events: auto;
   background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6));
   box-shadow: 0 -6px 40px rgba(0,0,0,0.6);
 }
 
-/* Video background covers the whole footer area */
+/* Remove the pseudo-element barrier */
+
+/* Video background covers the whole footer area - only on desktop */
 .contact-media {
   position: absolute;
   inset: 0;
@@ -165,33 +167,42 @@
 /* footer small copyright */
 .panel-footer { margin-top: 16px; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
 
-/* Responsive: mobile stacking — the video becomes relative and the panel sits inside the flow */
+/* Responsive: mobile stacking — no video background on mobile */
 @media (max-width: 980px) {
   .contact-section {
-    /* On mobile we let footer be part of flow so user can scroll it fully */
-    position: relative;
-    --contact-footer-height: 900px; /* larger mobile height so panel content is visible */
-    height: auto;
-    min-height: var(--contact-footer-height);
-    max-height: none;
+    /* On mobile we maintain the same behavior but with adjusted height */
+    height: 100vh;
+    min-height: 100vh;
+    /* Enhanced mobile background since no video */
+    background: linear-gradient(180deg, rgba(0,0,0,0.8), rgba(16,32,16,0.9));
   }
-  .contact-media { position: relative; height: 420px; }
-  .media-video {
-    position: relative;
-    transform: none;
-    left: auto;
-    top: auto;
-    min-width: 100%;
-    min-height: 100%;
-    width: 100%;
-    height: 420px;
-    object-fit: cover;
+  
+  /* No video media container on mobile - it's conditionally rendered */
+  .contact-media { 
+    display: none; 
   }
-  .media-overlay { position: absolute; }
 
-  .contact-content { align-items: flex-start; flex-direction: column; padding: 18px; gap: 14px; }
-  .contact-panel { width: 100%; margin: 16px 0 0 0; max-width: 720px; }
-  .socials { margin-left: 0; justify-content: center; }
+  .contact-content { 
+    align-items: flex-start; 
+    flex-direction: column; 
+    padding: 18px; 
+    gap: 14px; 
+    /* Add some top padding for better mobile spacing */
+    padding-top: 40px;
+  }
+  
+  .contact-panel { 
+    width: 100%; 
+    margin: 16px 0 0 0; 
+    max-width: 720px; 
+    /* Slightly more opaque background on mobile since no video */
+    background: linear-gradient(180deg, rgba(8,12,8,0.85), rgba(6,10,6,0.75));
+  }
+  
+  .socials { 
+    margin-left: 0; 
+    justify-content: center; 
+  }
 }
 
 /* narrow screens: center socials and actions */
@@ -199,8 +210,32 @@
   .panel-actions { justify-content: center; gap: 12px; }
   .socials { margin-left: 0; justify-content: center; }
   /* reduce some padding to help with vertical space */
-  .contact-content { padding: 14px; gap: 12px; }
+  .contact-content { padding: 14px; gap: 12px; padding-top: 30px; }
   .contact-panel { padding: 18px; }
+}
+
+/* Hide video elements completely on mobile - CSS fallback */
+@media (max-width: 768px) {
+  .contact-media {
+    display: none !important;
+  }
+  
+  .media-video,
+  .media-loading,
+  .media-overlay {
+    display: none !important;
+  }
+}
+
+/* Additional mobile detection for touch devices */
+@media (hover: none) and (pointer: coarse) {
+  .contact-media {
+    display: none !important;
+  }
+  
+  .contact-section {
+    background: linear-gradient(180deg, rgba(0,0,0,0.8), rgba(16,32,16,0.9));
+  }
 }
 
 /* reduced-motion */

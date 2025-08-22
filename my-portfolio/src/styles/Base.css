@@ -19,7 +19,9 @@
   --text-secondary: #ffffff;
   --text-muted: #ffffff;
   --robot-shift: 14%;
-  --bg: #0b0b0b;
+  /* Force pure black so robot and page blend perfectly */
+  --bg: #000000;
+  --bg-alt: #000000;
   --accent: #00ff88;
   --metal-white: #ffffff;
   --metal-mid: #e6e9ec;
@@ -44,41 +46,55 @@
   --typewriter-glow-secondary: #00ff88;
 }
 
-/* CRITICAL: Base scroll behavior fix */
+/* CRITICAL: Let Lenis handle smooth scrolling */
 html {
-  scroll-behavior: auto; /* Let Lenis handle smooth scrolling */
+  scroll-behavior: auto;
   overflow-x: hidden;
-  overscroll-behavior: none; /* Prevent bounce on iOS */
 }
 
 body {
-  height: 100%;
+  height: auto;
   width: 100%;
   max-width: 100vw;
   background: var(--bg);
   color: var(--text-primary);
   font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, system-ui, sans-serif;
   overflow-x: hidden;
-  overscroll-behavior: none; /* Prevent bounce on iOS */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* Remove any conflicting scroll behavior */
-  touch-action: pan-y; /* Allow vertical scrolling on touch devices */
 }
 
 #root {
-  height: 100%;
   width: 100%;
+  min-height: 100vh;
 }
 
 .app-root { 
+  width: 100%;
   min-height: 100vh; 
   position: relative; 
   overflow-x: hidden;
-  /* CRITICAL: Ensure no conflicting overflow settings */
-  overflow-y: auto;
+}
+
+/* Main content container that holds all sections */
+.main-content {
+  position: relative;
   width: 100%;
+  min-height: 100vh;
+}
+
+/* Preloader states */
+.content-hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.content-visible {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 /* Enhanced background texture */
@@ -113,3 +129,5 @@ body {
     transform: translateY(0);
   }
 }
+
+/* Simple scroll behavior - let natural flow work */

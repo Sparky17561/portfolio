@@ -1,25 +1,49 @@
+/* projects.css — FINAL
+   - Title/description preserved (no mid-word breaks)
+   - Mobile circle returned to visible, label contained inside ring
+   - MOBILE CIRCLE SIZE INCREASED (variable: --mobile-circle-size)
+   - Single mobile override block (no duplicates)
+   - Mobile description improved with rectangular background and smaller font
+   - Reduced mobile overlay opacity for better image visibility
+   - Background image now covers full viewport
+*/
+
+/* =======================
+   Core variables & reset
+   ======================= */
 :root {
-  --navbar-height: 0px;   /* keep in sync with Projects.jsx */
-  --intro-height: 50px;   /* keep in sync with Projects.jsx */
+  --navbar-height: 0px;
+  --intro-height: 50px;
+  --bg-dark: rgba(0,0,0,0.98);
+  --overlay-dark: rgba(0,0,0,0.56);
+  --white: #ffffff;
+  --muted: #dcdcdc;
+  --accent: #00ff88;
+
+  /* Increased mobile circle size (you requested bigger) */
+  --mobile-circle-size: 140px;
 }
 
-/* reset to avoid unexpected gaps */
 html, body {
   margin: 0;
   padding: 0;
+  background: #000;
+  color: var(--white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
-/* ---------- Projects container ---------- */
+/* =======================
+   Intro / Header
+   ======================= */
 .projects-section {
   background: transparent;
-  color: white;
+  color: var(--white);
   position: relative;
   overflow: visible;
 }
 
-/* Sticky intro: stays under the navbar (so the "black band" remains fixed)
-   Lowered z-index so typical site navbars (which usually have higher z-index) remain above it.
-*/
 .projects-intro {
   height: var(--intro-height);
   position: sticky;
@@ -28,26 +52,17 @@ html, body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 10; /* kept small so navbar stays on top */
-  background: linear-gradient(180deg, rgba(0,0,0,0.98), rgba(0,0,0,0.98));
+  z-index: 10;
+  background: linear-gradient(180deg, var(--bg-dark), var(--bg-dark));
   padding: 4rem 2rem;
   box-sizing: border-box;
 }
 
-/* Titles */
 .projects-main-title {
   font-size: 3.6rem;
   font-weight: 700;
   margin: 0;
-  /* gradient text - white to grey */
-  background: linear-gradient(
-    90deg,
-    #ffffff 0%,
-    #e5e5e5 25%,
-    #cccccc 50%,
-    #e5e5e5 75%,
-    #ffffff 100%
-  );
+  background: linear-gradient(90deg, #ffffff 0%, #e5e5e5 25%, #cccccc 50%, #e5e5e5 75%, #ffffff 100%);
   background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -57,7 +72,7 @@ html, body {
 
 .projects-description {
   margin: 6px 0 0;
-  color: #dcdcdc;
+  color: var(--muted);
   font-size: 1.05rem;
 }
 
@@ -67,12 +82,14 @@ html, body {
   100% { background-position: 0% 50%; }
 }
 
-/* ---------- Slideshow area (reduced to fit remaining viewport) ---------- */
+/* =======================
+   Slideshow container
+   ======================= */
 .project-slideshow {
   margin-top: 0;
   height: calc(100vh - var(--navbar-height) - var(--intro-height));
   position: relative;
-  z-index: 5; /* below intro (10) and below navbar (which should have a higher z-index) */
+  z-index: 5;
   overflow: hidden;
 }
 
@@ -83,18 +100,7 @@ html, body {
   overflow: hidden;
 }
 
-/* dim overlay above slides so text pops; z-index kept lower than intro */
-.project-slider::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 1; /* very low so intro and link can be above */
-  pointer-events: none;
-  background: rgba(0,0,0,0.32);
-  transition: background 0.25s ease;
-}
-
-/* slides */
+/* each slide */
 .project-slide {
   position: absolute;
   width: 100%;
@@ -104,41 +110,61 @@ html, body {
   will-change: transform;
   overflow: hidden;
   z-index: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.40));
 }
 
 .project-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
   object-position: center;
   transform-origin: center center;
-  transform: scale(1.06);
+  transform: scale(1);
+  transition: transform 700ms cubic-bezier(.16,.84,.24,1);
 }
 
-/* content overlay (left) */
+/* =======================
+   Overlay content (left)
+   ======================= */
 .project-content-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 48%;
   height: 100%;
-  z-index: 2; /* above dim but below intro (10) */
+  z-index: 2;
   display: flex;
   flex-direction: column;
   justify-content: center;
   padding: 2.25rem 3rem;
   pointer-events: none;
-  background: linear-gradient(
-    90deg,
-    rgba(0,0,0,0.56) 0%,
-    rgba(0,0,0,0.40) 38%,
-    rgba(0,0,0,0.20) 70%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg, rgba(0,0,0,0.56) 0%, rgba(0,0,0,0.40) 38%, rgba(0,0,0,0.20) 70%, transparent 100%);
+  box-sizing: border-box;
 }
 
-.project-info { max-width: 520px; color: #fff; }
-.project-title { font-size: 3.2rem; font-weight: 800; margin-bottom: 1rem; }
+.project-left-dim { /* optional injected dim */ }
+
+.project-info {
+  max-width: 520px;
+  color: var(--white);
+  pointer-events: none;
+}
+
+/* Prevent mid-word breaks/hyphens for title & description */
+.project-title {
+  font-size: 3.2rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
+}
 
 .project-title-text {
   background: linear-gradient(90deg, #ffffff 0%, #e5e5e5 35%, #cccccc 70%);
@@ -147,21 +173,41 @@ html, body {
   background-clip: text;
   color: transparent;
   animation: gradientShiftWhite 8s linear infinite;
+  word-break: normal;
+  overflow-wrap: normal;
+  hyphens: none;
 }
 
-.project-description-text { color: #dcdcdc; line-height: 1.5; margin-bottom: 1.5rem; }
+.project-description {
+  margin-top: 0.5rem;
+  width:60vw;
+}
 
+.project-description-text {
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+  word-break: normal;
+  overflow-wrap: break-word;
+  hyphens: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* stack chips */
 .project-stack-items { display:flex; flex-wrap:wrap; gap:.7rem; }
 .project-stack-item {
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.14);
-  color: #ffffff;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--white);
   padding: .45rem .9rem;
   border-radius: 18px;
   font-size: .85rem;
 }
 
-/* indicators */
+/* =======================
+   Indicators & circle link (desktop defaults)
+   ======================= */
 .project-slider-indicator {
   position: fixed;
   top: calc(var(--navbar-height) + var(--intro-height) + 10vh);
@@ -170,58 +216,43 @@ html, body {
   display: flex;
   flex-direction: column;
   gap: .9rem;
-  z-index: 12; /* above intro and slideshow */
+  z-index: 12;
   opacity: 0;
   pointer-events: none;
 }
 .project-slider-indicator.show { opacity: 1; pointer-events: none; }
-
-.project-index {
-  width: 60px;
-  height: 2px;
-  transform-origin: right center;
-  background: #ffffff;
-  transform: scaleX(.5);
-}
+.project-index { width: 60px; height: 2px; transform-origin: right center; background: var(--white); transform: scaleX(.5); }
 .project-index.active { transform: scaleX(1); }
 
-/* LINK CIRCLE
-   Brought much higher (closer to the top of the visible area) but still under the site navbar.
-   z-index is high enough to appear above slideshow and intro content, but kept small so
-   it's unlikely to exceed a site navbar that typically has big z-index.
-*/
+/* desktop circle */
 .project-link {
   position: fixed;
-  top: calc(var(--navbar-height) + 500px); /* moved way up under navbar */
+  top: calc(var(--navbar-height) + 420px);
   right: 3.6%;
   width: 180px;
   height: 180px;
-  z-index: 20; /* kept modest so typical site navbar (100+) remains above */
+  z-index: 20;
   opacity: 0;
   pointer-events: auto;
   transform: translateY(0);
   transition: transform 0.22s ease, opacity 0.22s ease;
 }
-
-.project-link.show {
-  opacity: 1;
-  transform: translateY(-4px);
-}
+.project-link.show { opacity: 1; transform: translateY(-8px); }
 
 .project-link-wrapper {
-  position:absolute;
-  top:50%;
-  left:50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%,-50%);
-  width:160px;
-  height:160px;
-  pointer-events:auto;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  width: 160px;
+  height: 160px;
+  pointer-events: auto;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
 }
-
 .project-link-wrapper::before {
   content: "";
   position: absolute;
@@ -229,25 +260,49 @@ html, body {
   border-radius: 50%;
   z-index: 19;
   pointer-events: none;
-  box-shadow: 0 0 34px rgba(255, 255, 255, 0.06), 0 0 8px rgba(255, 255, 255, 0.04) inset;
+  box-shadow: 0 0 34px rgba(255,255,255,0.06), 0 0 8px rgba(255,255,255,0.04) inset;
   transition: box-shadow 0.25s ease;
 }
 .project-link-wrapper:hover::before {
-  box-shadow: 0 0 48px rgba(255, 255, 255, 0.14), 0 0 12px rgba(255, 255, 255, 0.08) inset;
+  box-shadow: 0 0 48px rgba(255,255,255,0.14), 0 0 12px rgba(255,255,255,0.08) inset;
+}
+.project-link-wrapper a { display: block; width: 100%; height: 100%; }
+
+/* label (desktop) */
+.project-link-label {
+  position: absolute;
+  top: 47.5%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 66%;
+  height: 66%;
+}
+.project-link-label p {
+  margin: 0;
+  color: var(--white);
+  font-weight: 600;
+  line-height: 1;
+  text-align: center;
 }
 
-.project-link-wrapper a { display:block; width:100%; height:100%; }
-
-.project-link-label { position:absolute; top:47.5%; left:50%; transform:translate(-50%,-50%); pointer-events:none; }
+/* decorative offsets (desktop) */
 .project-line { height: 20px; overflow: hidden; }
 .project-line-1 { position: relative; width: 60px; left: -2px; }
 .project-line-2 { position: relative; width: 80px; left: 20px; }
-.project-line p { position:absolute; transform: translateY(0); margin:0; color:#ffffff; }
+.project-line p { position: absolute; transform: translateY(0); margin: 0; color: var(--white); }
 
-/* Utility */
+/* utility */
 svg { pointer-events: none; }
 
-/* responsive */
+/* =======================
+   Tablet responsive
+   ======================= */
 @media (max-width: 900px) {
   :root { --intro-height: 150px; }
   .project-content-overlay { width: 60%; padding: 1.6rem; }
@@ -257,34 +312,227 @@ svg { pointer-events: none; }
   .project-link-wrapper { width: 120px; height: 120px; }
 }
 
+/* =======================
+   MOBILE overrides
+   - preserve title/description wrapping
+   - place enlarged circle inside viewport, label contained
+   - improved description background with smaller font and better styling
+   - background image covers full viewport
+   ======================= */
+@media (max-width: 768px) {
+  :root {
+    --intro-height: 150px;
+    /* big circle on mobile now */
+    --mobile-circle-size: 140px;
+  }
 
-/* slide container centers the image */
-.project-slide {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  will-change: transform;
-  overflow: hidden;
-  z-index: 0;
+  .project-content-overlay {
+    position: absolute !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 1.8rem 1.2rem 1.2rem 1.2rem !important; /* further reduced top padding to show more image */
+    /* reduced right margin to expand description box more to the right */
+    padding-right: calc(var(--mobile-circle-size) + 0.8rem) !important;
+    background: linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.15) 35%, transparent 70%) !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+    pointer-events: none !important;
+  }
 
-  /* center image inside the slide */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(180deg, rgba(0,0,0,0.24), rgba(0,0,0,0.40)); /* subtle fill for letterbox */
+  .project-left-dim { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1000; pointer-events: none; }
+
+  .project-content-overlay .project-info {
+    max-width: calc(100% - (var(--mobile-circle-size) + 0.8rem)) !important;
+    min-width: 55% !important; /* increased minimum width for better text expansion */
+    padding-right: 0.3rem !important; /* reduced right padding */
+    pointer-events: none !important;
+  }
+
+  .projects-main-title { font-size: 1.95rem !important; }
+  .project-title { font-size: 1.75rem !important; margin-bottom: 0.9rem !important; line-height: 1.04 !important; word-break: normal !important; hyphens: none !important; overflow-wrap: normal !important; }
+  .project-title-text { display: block !important; word-break: normal !important; hyphens: none !important; overflow-wrap: normal !important; }
+
+  .project-description { margin-top: 1.5rem !important; }
+  .project-description-text {
+    font-size: 0.875rem !important; /* Smaller font size */
+    line-height: 1.5 !important;
+    color: var(--white) !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    hyphens: none !important;
+    min-height: 140px !important;
+    padding: 1.4rem 1.6rem !important; /* Increased padding for better text wrapping */
+    background: rgba(0,0,0,0.45) !important; /* Much more transparent - 45% opacity */
+    border: 1px solid rgba(255,255,255,0.2) !important; /* Slightly more visible border */
+    border-radius: 8px !important; /* More rectangular, less rounded */
+    backdrop-filter: blur(8px) !important; /* Reduced blur for more transparency */
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important; /* Lighter shadow */
+    font-weight: 400 !important; /* Regular weight for better readability */
+    text-align: left !important; /* Left align for better readability */
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .project-slide img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center !important;
+    transform: scale(1) !important; /* Remove the scale to show complete image */
+  }
+
+  .project-stack { display: none !important; }
+
+  /* PLACE THE LARGER CIRCLE: center-ish but pulled up a little (so it doesn't land exactly on top of middle text)
+     right value keeps it fully inside the viewport; change right if it appears too close to the edge.
+  */
+  .project-link {
+    position: fixed !important;
+    display: block !important;
+    width: var(--mobile-circle-size) !important;
+    height: var(--mobile-circle-size) !important;
+    right: 6.25% !important;
+    top: 48% !important;                   /* vertical center area */
+    transform: translateY(-48%) !important;/* small upward nudge from true center */
+    bottom: auto !important;
+    z-index: 99999 !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    transition: transform 180ms ease !important;
+  }
+  .project-link.show { opacity: 1 !important; transform: translateY(-48%) !important; }
+
+  /* inner wrapper shows the ring and contains the label */
+  .project-link-wrapper {
+    width: calc(var(--mobile-circle-size) - 12px) !important; /* inner ring padding */
+    height: calc(var(--mobile-circle-size) - 12px) !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    position: relative !important;
+    box-sizing: border-box !important;
+  }
+
+  /* allow decorative SVG ring to fill wrapper and sit behind text */
+  .project-link-wrapper svg {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    z-index: 1 !important;
+    pointer-events: none !important;
+  }
+
+  /* center stacked "View / Project" inside the circle */
+  .project-link-label {
+    position: relative !important;
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    pointer-events: none !important;
+    padding: 0 .4rem !important;
+    z-index: 4 !important;
+  }
+
+  .project-line, .project-line-1, .project-line-2 {
+    position: static !important;
+    width: auto !important;
+    left: 0 !important;
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: center !important;
+  }
+  .project-line p {
+    position: static !important;
+    transform: none !important;
+    margin: 0 !important;
+    display: block !important;
+    color: var(--white) !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    z-index: 5 !important;
+  }
+
+  .project-link-label .project-line + .project-line { margin-top: 6px !important; }
+
+  .project-link-wrapper a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    text-decoration: none !important;
+    z-index: 5 !important;
+  }
+
+  .project-slider-indicator { right: 0.75rem !important; top: calc(var(--navbar-height) + var(--intro-height) + 6vh) !important; }
 }
 
-/* image is contained (no crop), keeps aspect ratio */
-.project-slide img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain;       /* important: contain instead of cover */
-  object-position: center;
-  transform-origin: center center;
-  transform: scale(1);       /* remove forced large scale */
-  transition: transform 700ms cubic-bezier(.16,.84,.24,1);
+/* very small phones */
+@media (max-width: 420px) {
+  :root { --mobile-circle-size: 120px; }
+
+  .project-content-overlay {
+    padding: 2.5rem 1.0rem 1.0rem 1.0rem !important;
+    padding-right: calc(var(--mobile-circle-size) + 0.8rem) !important; /* consistent reduced margin */
+  }
+
+  .projects-main-title { font-size: 1.6rem !important; }
+  .project-title { font-size: 1.25rem !important; margin-bottom: .75rem !important; }
+  .project-description-text { 
+    font-size: 0.8rem !important; 
+    line-height: 1.45 !important; 
+    min-height: 120px !important; 
+    padding: 1.2rem 1.4rem !important; /* Increased padding for small screens too */
+    background: rgba(0,0,0,0.45) !important; /* Same transparency on small screens */
+    border: 1px solid rgba(255,255,255,0.2) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3) !important;
+  }
+
+  .project-link {
+    width: var(--mobile-circle-size) !important;
+    height: var(--mobile-circle-size) !important;
+    right: 6.5% !important;
+    top: 46% !important;
+    transform: translateY(-46%) !important;
+  }
+  .project-link-wrapper {
+    width: calc(var(--mobile-circle-size) - 12px) !important;
+    height: calc(var(--mobile-circle-size) - 12px) !important;
+    border-radius: 50% !important;
+    overflow: hidden !important;
+  }
+
+  .project-link-label .project-line-1 p,
+  .project-link-label .project-line-2 p {
+    font-size: clamp(0.9rem, 2.8vw, 1.05rem) !important;
+  }
+}
+
+/* safe-area handling */
+@supports (padding: env(safe-area-inset-bottom)) {
+  @media (max-width: 768px) {
+    .project-link {
+      transform: translateY(calc(-48% - env(safe-area-inset-bottom))) !important;
+    }
+    @media (max-width: 420px) {
+      .project-link { transform: translateY(calc(-46% - env(safe-area-inset-bottom))) !important; }
+    }
+  }
+}
+
+/* reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0ms !important; animation-duration: 0ms !important; }
 }

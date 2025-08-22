@@ -26,12 +26,12 @@ const BriefcaseIcon = ({ size = 18 }) => (
 /* Data for timeline - FIXED: Use actual component references instead of strings */
 const TIMELINE = [
   {
-    role: "Upcoming Intern",
+    role: "Software Developer Intern",
     company: "Wissen Technology",
     period: "Jan 2026 - Jul 2026",
     Icon: MonitorIcon,
     accent: "#00ff88",
-    description: "Software Developer Intern",
+    description: "Upcoming Intern",
     link: "#"
   },
   {
@@ -40,7 +40,7 @@ const TIMELINE = [
     period: "Jan 2024 - Feb 2024",
     Icon: CodeIcon,
     accent: "#00e676",
-    description: "Designed and implemented desktop applications ...",
+    description: "Designed and implemented desktop applications using Tkinter,CustomTkinter,TtkBootstrap and Figma",
     // Replace the placeholder below with the Mira certificate / project URL (GitHub, Drive link, LinkedIn post, etc.)
     link: "https://www.linkedin.com/posts/saiprasad-jamdar_python-internship-certificate-activity-7166684181572403200-qvvA?utm_source=share&utm_medium=member_desktop&rcm=ACoAAD_9CmQBaKpho7VahiwxaLLmRw0aF3ggvC8"
   },

@@ -1,16 +1,43 @@
 // ContactSection.jsx
 import React, { useEffect, useRef, useState } from "react";
-import cubeVideo from "./cube_animation.mp4"; // place the file in the same folder (or update path)
-
+import cubeVideo from "./cube_animation.mp4";
 
 export default function ContactSection() {
   const footerRef = useRef(null);
   const videoRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Video load/play logic
+  // Check if device is mobile
   useEffect(() => {
+    const checkMobile = () => {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isSmallScreen = window.innerWidth <= 768;
+      
+      return isMobileDevice || (isTouchDevice && isSmallScreen);
+    };
+
+    setIsMobile(checkMobile());
+
+    const handleResize = () => {
+      setIsMobile(checkMobile());
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Video load/play logic - only run on desktop
+  useEffect(() => {
+    // Skip video initialization on mobile devices
+    if (isMobile) {
+      setIsLoading(false);
+      return;
+    }
+
     const v = videoRef.current;
     if (!v) return;
 
@@ -47,7 +74,7 @@ export default function ContactSection() {
         v.removeEventListener("error", onError);
       } catch (e) {}
     };
-  }, []);
+  }, [isMobile]);
 
   // Reserve footer space by setting body padding-bottom & CSS var; keep updated with ResizeObserver
   useEffect(() => {
@@ -100,35 +127,37 @@ export default function ContactSection() {
       className="contact-section"
       aria-label="Contact footer"
     >
-      {/* Video background (absolute on desktop, static on mobile) */}
-      <div className="contact-media" aria-hidden="true">
-        {isLoading && !hasError && (
-          <div className="media-loading" role="status" aria-live="polite">
-            <div className="spinner" />
-            <div className="loading-text">Loading animation…</div>
-          </div>
-        )}
+      {/* Video background (only on desktop) */}
+      {!isMobile && (
+        <div className="contact-media" aria-hidden="true">
+          {isLoading && !hasError && (
+            <div className="media-loading" role="status" aria-live="polite">
+              <div className="spinner" />
+              <div className="loading-text">Loading animation…</div>
+            </div>
+          )}
 
-        {hasError && (
-          <div className="media-loading" role="alert">
-            Animation failed to load
-          </div>
-        )}
+          {hasError && (
+            <div className="media-loading" role="alert">
+              Animation failed to load
+            </div>
+          )}
 
-        <video
-          ref={videoRef}
-          className="media-video"
-          preload="auto"
-          playsInline
-          muted
-          loop
-          aria-hidden="true"
-        >
-          <source src={cubeVideo} type="video/mp4" />
-        </video>
+          <video
+            ref={videoRef}
+            className="media-video"
+            preload="auto"
+            playsInline
+            muted
+            loop
+            aria-hidden="true"
+          >
+            <source src={cubeVideo} type="video/mp4" />
+          </video>
 
-        <div className="media-overlay" aria-hidden="true" />
-      </div>
+          <div className="media-overlay" aria-hidden="true" />
+        </div>
+      )}
 
       {/* Content overlay */}
       <div className="contact-content" role="region" aria-label="Contact links">
@@ -144,7 +173,10 @@ export default function ContactSection() {
             <a className="panel-link" href="#skills">Skills</a>
             <a className="panel-link" href="#experience">Experience</a>
             <a className="panel-link" href="#contact">Contact</a>
-            <a className="panel-link" href="#blog">Blog</a>
+            <a className="panel-link" href="#education">Education</a>
+            <a className="panel-link" href="#achievements">Achievements</a>
+            <a className="panel-link" href="#research">Research</a>
+
           </nav>
 
           <div className="panel-actions">

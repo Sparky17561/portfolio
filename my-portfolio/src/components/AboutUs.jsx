@@ -7,7 +7,7 @@ import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RAW_PARAGRAPH = `Hi — I’m Saiprasad_Jamdar. I build Backend systems, AI applications and ship full-stack products that solve real problems. Gamethon2k25 winner and FYTopper; I mentor peers and enjoy competitive_programming. Let's Connect and make something Awesome`;
+const RAW_PARAGRAPH = `Hi — I’m Saiprasad_Jamdar. I build Backend systems, AI applications and ship full-stack products that solve real problems. Gamethon2k25 winner; I mentor peers and enjoy competitive_programming. Let's Connect and make something Awesome`;
 
 function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
