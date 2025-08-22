@@ -1,7 +1,6 @@
 /* contact-section.css
    Fixed footer that sticks to bottom. Video background + overlay panel.
-   Desktop: video on left, panel on right (video fully covers left area).
-   Mobile: stacked & scrollable (unchanged).
+   Updated to avoid overflow & improve mobile layout.
 */
 
 :root {
@@ -10,11 +9,9 @@
   --glass-border: rgba(34,197,94,0.04);
   --card-radius: 16px;
   --contact-footer-height: 360px; /* overwritten by JS at runtime */
-  --panel-width: 420px;           /* width of the right panel */
-  --panel-gap: 28px;              /* gap between panel and viewport/right */
 }
 
-/* consistent box sizing */
+/* ensure consistent box sizing */
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -26,7 +23,7 @@
   right: 0;
   bottom: 0;
   width: 100%;
-  height: var(--contact-footer-height);
+  height: 100vh;
   max-height: 85vh;
   z-index: 9999;
   overflow: hidden; /* hide overflow from video or shadows */
@@ -35,31 +32,34 @@
   box-shadow: 0 -6px 40px rgba(0,0,0,0.6);
 }
 
-/* Video background container */
+/* Video background covers the whole footer area */
 .contact-media {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 1;
   overflow: hidden;
   min-width: 0;
   min-height: 0;
-  /* width set per breakpoint (desktop calc below) */
 }
 
-/* Video element - cover assigned area */
+/* Desktop: reduce video scale a bit, center and ensure cover without creating scrollbars */
 .media-video {
   position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  /* make sure it fully covers the footer but keep it slightly reduced to avoid pushing layout */
+  min-width: 60%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
   object-fit: cover;
   object-position: center;
   pointer-events: none;
   user-select: none;
   -webkit-user-drag: none;
+  max-width: none;
+  max-height: none;
   filter: saturate(0.95) brightness(0.95);
 }
 
@@ -102,20 +102,18 @@
   position: relative;
   z-index: 4;
   display: flex;
-  align-items: stretch; /* stretch so panel aligns vertically */
+  align-items: center;
   justify-content: center;
   height: 100%;
   padding: 28px;
   gap: 22px;
-  /* padding-right will be adjusted on desktop so panel does not overlap video */
 }
 
 /* The panel (right on desktop) */
 .contact-panel {
-  width: var(--panel-width);
+  width: 420px;
   max-width: calc(100% - 64px);
   margin-left: auto;
-  margin-right: var(--panel-gap);
   background: linear-gradient(180deg, rgba(8,12,8,0.64), rgba(6,10,6,0.48));
   border-radius: var(--card-radius);
   padding: 22px;
@@ -123,7 +121,6 @@
   box-shadow: 0 16px 40px rgba(0,0,0,0.6);
   backdrop-filter: blur(8px) saturate(1.1);
   color: #eafef3;
-  align-self: center;
 }
 
 /* copy and links */
@@ -168,59 +165,40 @@
 /* footer small copyright */
 .panel-footer { margin-top: 16px; color: rgba(255,255,255,0.5); font-size: 0.9rem; }
 
-/* ---------- DESKTOP: video fills left area, panel on right ---------- */
-@media (min-width: 981px) {
-  /* make left .contact-media exactly the remaining width after the panel and gap */
-  .contact-media {
-    width: calc(100% - (var(--panel-width) + var(--panel-gap)));
-    right: auto;
-  }
-
-  /* ensure content overlay gives space for the panel on the right */
-  .contact-content {
-    padding-right: calc(var(--panel-width) + var(--panel-gap) + 8px);
-  }
-
-  /* the video already fills .contact-media via .media-video { width:100%; height:100% } */
-}
-
-/* ---------- MOBILE (stacked & scrollable) ---------- */
+/* Responsive: mobile stacking — the video becomes relative and the panel sits inside the flow */
 @media (max-width: 980px) {
   .contact-section {
-    /* let footer be part of the flow on mobile so user can scroll full panel */
+    /* On mobile we let footer be part of flow so user can scroll it fully */
     position: relative;
-    --contact-footer-height: 900px;
+    --contact-footer-height: 900px; /* larger mobile height so panel content is visible */
     height: auto;
     min-height: var(--contact-footer-height);
     max-height: none;
   }
-
-  .contact-media {
-    position: relative;
-    width: 100%;
-    height: 420px;
-  }
-
+  .contact-media { position: relative; height: 420px; }
   .media-video {
     position: relative;
+    transform: none;
     left: auto;
     top: auto;
-    transform: none;
+    min-width: 100%;
+    min-height: 100%;
     width: 100%;
     height: 420px;
     object-fit: cover;
   }
-
   .media-overlay { position: absolute; }
+
   .contact-content { align-items: flex-start; flex-direction: column; padding: 18px; gap: 14px; }
   .contact-panel { width: 100%; margin: 16px 0 0 0; max-width: 720px; }
   .socials { margin-left: 0; justify-content: center; }
 }
 
-/* narrow screens: center socials & reduce padding */
+/* narrow screens: center socials and actions */
 @media (max-width: 420px) {
   .panel-actions { justify-content: center; gap: 12px; }
   .socials { margin-left: 0; justify-content: center; }
+  /* reduce some padding to help with vertical space */
   .contact-content { padding: 14px; gap: 12px; }
   .contact-panel { padding: 18px; }
 }

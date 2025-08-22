@@ -250,13 +250,12 @@ export default function App() {
         </section>
 
         {/* EXPERIENCE SECTION */}
-        <section id="experience">
+        <section id="experience" style={{ position: 'relative' }}>
           <Experience />
         </section>
 
-
-        {/* CONTACT FOOTER */}
-        <footer id="contact" aria-label="Contact" role="contentinfo">
+        {/* CONTACT FOOTER - This is the last section and should prevent any further scrolling */}
+        <footer id="contact" aria-label="Contact" role="contentinfo" style={{ position: 'relative', zIndex: 10 }}>
           <ContactFooter />
         </footer>
 
