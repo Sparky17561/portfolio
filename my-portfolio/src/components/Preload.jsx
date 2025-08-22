@@ -226,9 +226,9 @@ const Preload = ({ onComplete, videoCubeRef, splineRobotRef }) => {
             <div className="progress-text" aria-hidden={fadeOut}>
               <span className="progress-percentage">{Math.min(Math.round(progress), 100)}%</span>
               <span className="progress-status">
-                {progress < 33 ? 'Loading interface...' :
-                 progress < 66 ? 'Loading animations...' :
-                 progress < 100 ? 'Loading 3D models...' :
+                {progress < 33 ? 'Initializing...' :
+                 progress < 66 ? 'Configuring...' :
+                 progress < 100 ? 'Executing...' :
                  'Ready!'}
               </span>
             </div>

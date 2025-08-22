@@ -32,32 +32,32 @@ const Education = () => {
       status: "ongoing",
       highlights: ["Data Science", "IIT Madras", "Online Learning"]
     },
-    {
-      id: 3,
-      level: "Higher Secondary",
-      degree: "12th Standard - Science",
-      institution: "BK Birla College of Commerce, Science & Arts",
-      location: "Mumbai",
-      year: "2022",
-      score: "75%",
-      scoreLabel: "Percentage",
-      icon: "📚",
-      status: "completed",
-      highlights: ["Science Stream", "Physics, Chemistry, Mathematics", "College Preparation"]
-    },
-    {
-      id: 4,
-      level: "Secondary",
-      degree: "10th Standard",
-      institution: "Sri Vani Vidyashala High School",
-      location: "Kalyan, Mumbai",
-      year: "2020",
-      score: "92%",
-      scoreLabel: "Percentage",
-      icon: "🏫",
-      status: "completed",
-      highlights: ["Strong Foundation", "Academic Excellence", "All Subjects"]
-    }
+    // {
+    //   id: 3,
+    //   level: "Higher Secondary",
+    //   degree: "12th Standard - Science",
+    //   institution: "BK Birla College of Commerce, Science & Arts",
+    //   location: "Mumbai",
+    //   year: "2022",
+    //   score: "75%",
+    //   scoreLabel: "Percentage",
+    //   icon: "📚",
+    //   status: "completed",
+    //   highlights: ["Science Stream", "Physics, Chemistry, Mathematics", "College Preparation"]
+    // },
+    // {
+    //   id: 4,
+    //   level: "Secondary",
+    //   degree: "10th Standard",
+    //   institution: "Sri Vani Vidyashala High School",
+    //   location: "Kalyan, Mumbai",
+    //   year: "2020",
+    //   score: "92%",
+    //   scoreLabel: "Percentage",
+    //   icon: "🏫",
+    //   status: "completed",
+    //   highlights: ["Strong Foundation", "Academic Excellence", "All Subjects"]
+    // }
   ];
 
   useEffect(() => {
@@ -131,7 +131,7 @@ const Education = () => {
 
                   <div className="score-section">
                     <div className="score-display">
-                      <span className="score-value">{edu.score}</span>
+                      {/* <span className="score-value">{edu.score}</span> */}
                       <span className="score-label">{edu.scoreLabel}</span>
                     </div>
                   </div>

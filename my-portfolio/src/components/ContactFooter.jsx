@@ -1,6 +1,9 @@
-// ContactSection.jsx
+// src/components/ContactSection.jsx
 import React, { useEffect, useRef, useState } from "react";
-import cubeVideo from "./cube_animation.mp4";
+import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { SiLeetcode } from "react-icons/si";
+import cubeVideo from "./cube_animation.mp4"; // <- adjust path to where your video lives
+
 
 export default function ContactSection() {
   const footerRef = useRef(null);
@@ -9,30 +12,26 @@ export default function ContactSection() {
   const [hasError, setHasError] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
 
-  // Check if device is mobile
+  // Mobile detection (basic)
   useEffect(() => {
     const checkMobile = () => {
       const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-      const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(
+        userAgent.toLowerCase()
+      );
+      const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
       const isSmallScreen = window.innerWidth <= 768;
-      
       return isMobileDevice || (isTouchDevice && isSmallScreen);
     };
 
     setIsMobile(checkMobile());
-
-    const handleResize = () => {
-      setIsMobile(checkMobile());
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const onResize = () => setIsMobile(checkMobile());
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
   }, []);
 
-  // Video load/play logic - only run on desktop
+  // Video load/play logic (skip on mobile)
   useEffect(() => {
-    // Skip video initialization on mobile devices
     if (isMobile) {
       setIsLoading(false);
       return;
@@ -46,7 +45,7 @@ export default function ContactSection() {
     const onCanPlay = () => {
       if (!mounted) return;
       setIsLoading(false);
-      v.muted = true; // ensure no audio
+      v.muted = true;
       const p = v.play();
       if (p && typeof p.then === "function") p.catch(() => {});
     };
@@ -76,7 +75,7 @@ export default function ContactSection() {
     };
   }, [isMobile]);
 
-  // Reserve footer space by setting body padding-bottom & CSS var; keep updated with ResizeObserver
+  // Reserve footer space & update CSS var for layout
   useEffect(() => {
     if (!footerRef.current) return;
 
@@ -99,16 +98,13 @@ export default function ContactSection() {
 
     return () => {
       window.removeEventListener("resize", onResize);
-      if (ro) {
-        try { ro.disconnect(); } catch (e) {}
-      }
-      // cleanup
+      if (ro) try { ro.disconnect(); } catch (e) {}
       document.body.style.paddingBottom = "";
       document.documentElement.style.removeProperty("--contact-footer-height");
     };
   }, [footerRef]);
 
-  // Prevent horizontal overflow while mounted and restore on unmount
+  // Prevent horizontal overflow while mounted
   useEffect(() => {
     const prevHtmlOverflowX = document.documentElement.style.overflowX || "";
     const prevBodyOverflowX = document.body.style.overflowX || "";
@@ -121,13 +117,8 @@ export default function ContactSection() {
   }, []);
 
   return (
-    <section
-      ref={footerRef}
-      id="contact"
-      className="contact-section"
-      aria-label="Contact footer"
-    >
-      {/* Video background (only on desktop) */}
+    <section ref={footerRef} id="contact" className="contact-section" aria-label="Contact footer">
+      {/* Video background (desktop only) */}
       {!isMobile && (
         <div className="contact-media" aria-hidden="true">
           {isLoading && !hasError && (
@@ -160,60 +151,98 @@ export default function ContactSection() {
       )}
 
       {/* Content overlay */}
-      <div className="contact-content" role="region" aria-label="Contact links">
+      <div className="contact-content" role="region" aria-label="Contact information">
         <div className="contact-panel">
-          <div className="panel-copy">
-            <h3>Let's build something together</h3>
-            <p className="panel-sub">Open to internships, freelance, and collaborations — say hi!</p>
+          <div className="panel-header">
+            <h2 className="panel-title">Let's build something together</h2>
+            <p className="panel-subtitle">Open to internships, freelance, and collaborations — say hi!</p>
           </div>
 
-          <nav className="panel-links" aria-label="Quick links">
-            <a className="panel-link" href="#about">About</a>
-            <a className="panel-link" href="#projects">Projects</a>
-            <a className="panel-link" href="#skills">Skills</a>
-            <a className="panel-link" href="#experience">Experience</a>
-            <a className="panel-link" href="#contact">Contact</a>
-            <a className="panel-link" href="#education">Education</a>
-            <a className="panel-link" href="#achievements">Achievements</a>
-            <a className="panel-link" href="#research">Research</a>
-
-          </nav>
-
-          <div className="panel-actions">
-            <a className="btn-email" href="mailto:studentjamdar@gmail.com" aria-label="Send email">
-              <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden focusable="false">
-                <path fill="currentColor" d="M2 6.5A2.5 2.5 0 014.5 4h15A2.5 2.5 0 0122 6.5v11A2.5 2.5 0 0119.5 20h-15A2.5 2.5 0 012 17.5v-11zM4.5 6a.5.5 0 00-.5.5V8l8 4.5L20 8V6.5a.5.5 0 00-.5-.5h-15z"/>
-              </svg>
-              <span>Email</span>
+          <div className="contact-methods">
+            <a className="contact-method primary" href="mailto:studentjamdar@gmail.com" aria-label="Send email">
+              <div className="method-icon" aria-hidden>
+                {/* kept inline mail icon for clarity */}
+                <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden focusable="false">
+                  <path fill="currentColor" d="M2 6.5A2.5 2.5 0 014.5 4h15A2.5 2.5 0 0122 6.5v11A2.5 2.5 0 0119.5 20h-15A2.5 2.5 0 012 17.5v-11zM4.5 6a.5.5 0 00-.5.5V8l8 4.5L20 8V6.5a.5.5 0 00-.5-.5h-15z"/>
+                </svg>
+              </div>
+              <div className="method-content">
+                <span className="method-label">Email</span>
+                <span className="method-value">studentjamdar@gmail.com</span>
+              </div>
             </a>
 
-            <div className="socials" aria-label="Social links">
-              <a className="icon" href="https://www.linkedin.com/in/saiprasad-jamdar" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                {/* LinkedIn svg */}
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden><path fill="currentColor" d="M6.94 6.5a1.94 1.94 0 11-.002-3.88 1.94 1.94 0 01.002 3.88zM4.5 8.5h4v11h-4v-11zM10.5 8.5h3.84v1.5h.05c.54-1 1.88-2 3.86-2 4.13 0 4.9 2.7 4.9 6.2v5.3h-4v-4.7c0-1.12 0-2.56-1.56-2.56-1.56 0-1.8 1.22-1.8 2.47v4.8h-4v-11z"/></svg>
+            <a
+              className="contact-method secondary"
+              href="https://www.linkedin.com/in/saiprasad-jamdar"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn profile"
+            >
+              <div className="method-icon" aria-hidden>
+                <FaLinkedin size={20} />
+              </div>
+              <div className="method-content">
+                <span className="method-label">LinkedIn</span>
+                <span className="method-value">Connect with me</span>
+              </div>
+            </a>
+          </div>
+
+          {/* Social links */}
+          <div className="social-section">
+            <h3 className="social-title">Find me elsewhere</h3>
+
+            <div className="social-grid">
+              <a
+                className="social-link"
+                href="https://github.com/Sparky17561"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+              >
+                <span className="icon-wrapper" aria-hidden>
+                  <FaGithub size={28} />
+                </span>
+                <span className="social-label">GitHub</span>
               </a>
 
-              <a className="icon" href="https://github.com/Sparky17561" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                {/* GitHub svg */}
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden><path fill="currentColor" d="M12 .5C5.7.5.9 5.3.9 11.6c0 4.6 3 8.5 7.2 9.9.5.1.7-.2.7-.5v-1.9c-2.9.6-3.5-1.2-3.5-1.2-.5-1.3-1.1-1.6-1.1-1.6-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.1 3.1.9.1-.6.4-1.1.7-1.4-2.3-.3-4.7-1.2-4.7-5.3 0-1.2.4-2.2 1-3 .1-.3-.4-1.4.1-2.9 0 0 .8-.2 2.8 1C10 4.9 11.4 4.8 12 4.8c.6 0 2 .1 3.3.6 2-1.2 2.8-1 2.8-1 .5 1.4 0 2.5.1 2.9.6.9 1 1.9 1 3 0 4.1-2.4 4.9-4.7 5.2.4.4.8 1 .8 2v3c0 .3.2.6.7.5 4.2-1.4 7.2-5.4 7.2-9.9C23.1 5.3 18.3.5 12 .5z"/></svg>
+              <a
+                className="social-link"
+                href="https://www.instagram.com/black__kitana/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
+                <span className="icon-wrapper" aria-hidden>
+                  <FaInstagram size={28} />
+                </span>
+                <span className="social-label">Instagram</span>
               </a>
 
-              <a className="icon" href="https://www.instagram.com/black__kitana/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                {/* Instagram svg */}
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden><path fill="currentColor" d="M7 2h10a5 5 0 015 5v10a5 5 0 01-5 5H7a5 5 0 01-5-5V7a5 5 0 015-5zm5 6.2A4.8 4.8 0 1016.8 13 4.8 4.8 0 0012 8.2zm6.4-2a1.2 1.2 0 11-1.2-1.2 1.2 1.2 0 011.2 1.2zM12 10.1A1.9 1.9 0 1110.1 12 1.9 1.9 0 0112 10.1z"/></svg>
-              </a>
-
-              <a className="icon" href="https://leetcode.com/u/Black_Kitana/" target="_blank" rel="noopener noreferrer" aria-label="LeetCode">
-                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden>
-                  <text x="12" y="16" textAnchor="middle" fontSize="10" fill="currentColor" fontFamily="Inter, Arial, sans-serif">LC</text>
-                </svg>
+              <a
+                className="social-link"
+                href="https://leetcode.com/u/Black_Kitana/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LeetCode"
+              >
+                <span className="icon-wrapper" aria-hidden>
+                  <SiLeetcode size={28} />
+                </span>
+                <span className="social-label">LeetCode</span>
               </a>
             </div>
           </div>
 
-          <div className="panel-footer">
-            <small>© {new Date().getFullYear()} Saiprasad Jamdar — Built with ❤️</small>
-          </div>
+          {/* <div className="panel-footer">
+            <div className="footer-content">
+              <p className="copyright">© {new Date().getFullYear()} Saiprasad Jamdar</p>
+              <p className="built-with">
+                Built with <span className="heart">❤️</span> and lots of ☕
+              </p>
+            </div>
+          </div> */}
         </div>
       </div>
     </section>
