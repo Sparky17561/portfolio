@@ -107,7 +107,10 @@ export default function Navbar() {
       {/* Desktop Navigation - Hidden on mobile */}
       <header className="nav">
         <div className="nav-inner">
-          <div 
+          
+
+          <nav className="nav-inline" aria-label="Primary">
+            <div 
             className="logo" 
             title="Home" 
             onClick={handleLogoClick}
@@ -115,8 +118,6 @@ export default function Navbar() {
           >
             SJ
           </div>
-
-          <nav className="nav-inline" aria-label="Primary">
             <ul className="nav-links">
               <li><a className="nav-link" href="#about" onClick={(e)=>handleNavClick(e,"#about")}>about</a></li>
               <li><a className="nav-link" href="#projects" onClick={(e)=>handleNavClick(e,"#projects")}>projects</a></li>
@@ -185,6 +186,24 @@ export default function Navbar() {
               </svg>
             </div>
             <span className="mobile-nav-label">skills</span>
+          </div>
+
+          <div 
+            className="mobile-nav-item" 
+            onClick={(e) => handleNavClick(e, "#experience")}
+            title="Experience"
+          >
+            <div className="mobile-nav-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                <line x1="8" y1="21" x2="16" y2="21"/>
+                <line x1="12" y1="17" x2="12" y2="21"/>
+                <path d="M6 11h12"/>
+                <path d="M6 7h8"/>
+                <circle cx="9" cy="9" r="1"/>
+              </svg>
+            </div>
+            <span className="mobile-nav-label">experience</span>
           </div>
 
           <div 

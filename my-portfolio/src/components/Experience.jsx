@@ -1,6 +1,5 @@
 import React from "react";
 
-
 /* Tiny inline SVG icons (no external deps) */
 const MonitorIcon = ({ size = 18 }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
@@ -24,13 +23,13 @@ const BriefcaseIcon = ({ size = 18 }) => (
   </svg>
 );
 
-/* Data for timeline */
+/* Data for timeline - FIXED: Use actual component references instead of strings */
 const TIMELINE = [
   {
     "role": "Upcoming Intern",
     "company": "Wissen Technology",
     "period": "Jan 2026 - Jul 2026",
-    "Icon": "MonitorIcon",
+    "Icon": MonitorIcon, // Changed from "MonitorIcon" string to actual component
     "accent": "#00ff88",
     "description": "Software Developer Intern"
   },
@@ -38,16 +37,17 @@ const TIMELINE = [
     "role": "Python Developer Intern",
     "company": "Mira Advanced Engineering (Remote)",
     "period": "Jan 2024 - Feb 2024",
-    "Icon": "CodeIcon",
+    "Icon": CodeIcon, // Changed from "CodeIcon" string to actual component
     "accent": "#00e676",
     "description": "Designed and implemented desktop applications, including an Employee Management System, BMI Calculator, and EMI Calculator, using Tkinter and TtkBootstrap. Enhanced user interfaces with Figma designs and CustomTkinter for intuitive user experiences. Delivered solutions in a task-oriented, time-constrained internship model."
   }
 
+  // Example of how to add more items:
   // {
   //   role: "Frontend Developer",
   //   company: "Digital Agency",
   //   period: "2020 — 2022",
-  //   Icon: BriefcaseIcon,
+  //   Icon: BriefcaseIcon, // Use actual component reference
   //   accent: "#00c853",
   //   description:
   //     "Delivered responsive UI, polished motion, and accessible experiences for enterprise and consumer clients.",
@@ -56,6 +56,7 @@ const TIMELINE = [
 
 function TimelineItem({ item, side, index }) {
   const { Icon, accent } = item;
+  
   return (
     <div className={`timeline-item ${side}`} data-index={index}>
       <div
@@ -67,6 +68,7 @@ function TimelineItem({ item, side, index }) {
         }}
         aria-hidden="true"
       >
+        {/* Now Icon is a React component, not a string */}
         <Icon size={18} />
       </div>
 

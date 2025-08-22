@@ -9,10 +9,10 @@
 @import './styles/Sections.css';
 @import './styles/Project.css';
 @import './styles/Experience.css';
-@import './styles/Skill.css';
-@import './styles/Contact.css';
+@import './styles/MakeSkill.css';
+@import './styles/ContactFooter.css';
 @import './styles/AboutUs.css';
-
+@import './styles/Preloader.css';
 
 /* Add this to your App.css file */
 

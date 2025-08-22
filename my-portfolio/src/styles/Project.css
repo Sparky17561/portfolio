@@ -30,7 +30,7 @@ html, body {
   align-items: center;
   z-index: 10; /* kept small so navbar stays on top */
   background: linear-gradient(180deg, rgba(0,0,0,0.98), rgba(0,0,0,0.98));
-  padding: 1rem 2rem;
+  padding: 4rem 2rem;
   box-sizing: border-box;
 }
 
