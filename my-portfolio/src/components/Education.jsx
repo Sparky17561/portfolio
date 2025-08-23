@@ -129,12 +129,12 @@ const Education = () => {
                     <p className="institution-location">{edu.location}</p>
                   </div>
 
-                  <div className="score-section">
+                  {/* <div className="score-section">
                     <div className="score-display">
-                      {/* <span className="score-value">{edu.score}</span> */}
+                      <span className="score-value">{edu.score}</span>
                       <span className="score-label">{edu.scoreLabel}</span>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="education-highlights">
                     {edu.highlights.map((highlight, idx) => (
