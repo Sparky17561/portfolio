@@ -1,6 +1,6 @@
 // src/components/ContactSection.jsx
 import React, { useEffect, useRef, useState } from "react";
-import { FaGithub, FaInstagram, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaInstagram, FaLinkedin, FaFilePdf } from "react-icons/fa";
 import { SiLeetcode } from "react-icons/si";
 import cubeVideo from "./cube_animation.mp4"; // <- adjust path to where your video lives
 
@@ -185,6 +185,22 @@ export default function ContactSection() {
               <div className="method-content">
                 <span className="method-label">LinkedIn</span>
                 <span className="method-value">Connect with me</span>
+              </div>
+            </a>
+
+            <a
+              className="contact-method prep-material"
+              href="/PrepMaterial.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="View PrepMaterial PDF"
+            >
+              <div className="method-icon" aria-hidden>
+                <FaFilePdf size={20} />
+              </div>
+              <div className="method-content">
+                <span className="method-label">PrepMaterial</span>
+                <span className="method-value">View study materials</span>
               </div>
             </a>
           </div>
