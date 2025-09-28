@@ -7,7 +7,7 @@ import SplitType from "split-type";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const RAW_PARAGRAPH = `Hi — I’m Saiprasad_Jamdar. I build Backend systems, AI applications and ship full-stack products that solve real problems. Gamethon2k25 winner; I mentor peers and enjoy competitive_programming. Let's Connect and make something Awesome`;
+const RAW_PARAGRAPH = `Hi — I’m Saiprasad_Jamdar. I build Backend systems, AI applications and ship full-stack products that solve real problems. 2x Hackathon Winner; I mentor peers and enjoy competitive_programming. Let's Connect and make something Awesome`;
 
 function escapeRegex(s) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -24,7 +24,7 @@ function makeHighlightedHtml(text, highlights = []) {
   return out;
 }
 
-export default function AboutUs({ highlights = ["SaiprasadJamdar", "VibeCoding", "DSA", "Gamethon2k25", "FYTopper"] }) {
+export default function AboutUs({ highlights = ["SaiprasadJamdar", "VibeCoding", "DSA", "2x","Winner", "FYTopper"] }) {
   const rootRef = useRef(null);
   const paraRef = useRef(null);
   const imageRef = useRef(null); // container element that holds the image stack

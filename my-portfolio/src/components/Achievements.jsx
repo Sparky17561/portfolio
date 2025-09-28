@@ -8,6 +8,14 @@ const Achievements = () => {
   const achievements = [
     {
       id: 1,
+      title: "Enigma 4.0 Hackathon Winner",
+      description: "Bagged 1st place at the National Level Hackathon in HealthTech track organized by SIES GST",
+      image: "/images/achievement3.jpg",
+      linkedinPost: "https://www.linkedin.com/posts/saiprasad-jamdar_hackathon-3xwinner-webdevelopment-activity-7375254968141942785-hMNj?utm_source=social_share_send&utm_medium=member_desktop_web&rcm=ACoAAD_9CmQBaKpho7VahiwxaLLmRw0aF3ggvC8",
+      category: "Competition"
+    },
+    {
+      id: 2,
       title: "Gamethon 2K25",
       description: "Won first place at the Inter-College Game Development using AI Hackathon",
       image: "/images/achievement1.jpg",
@@ -15,7 +23,7 @@ const Achievements = () => {
       category: "Competition"
     },
     {
-      id: 2,
+      id: 3,
       title: "Computer Engineering Branch Topper 2K22",
       description: "Secured Rank 1 among 180 Students of Computer Science Branch",
       image: "/images/achievement2.jpg",

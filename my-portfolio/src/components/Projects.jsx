@@ -29,6 +29,16 @@ const Projects = () => {
 
   const projects = [
     {
+      title: "Pencil - AI-Powered Flowchart Generator & Editor",
+      mobileTitle: "Pencil : Eraser.io killer",
+      description:
+        "An AI-powered flowchart generator and editor that creates detailed flowcharts from user prompts, allowing for easy customization and export in various formats. It leverages AI to streamline the design process, making it accessible for users of all skill levels.",
+      stack: ["React", "React Flow", "TailwindCSS", "Django", "Langchain", "GROQ API"],
+      url: "https://pencil-eta.vercel.app/",
+      image: "image-4.png",
+      mobileImage: "image-4m.png"
+    },
+    {
       title: "Zaikaa - Django Mobile Booking Web App",
       mobileTitle: "Zaikaa App",
       description:
@@ -48,15 +58,25 @@ const Projects = () => {
       image: "image-2.png",
       mobileImage: "image-2m.png"
     },
+    // {
+    //   title: "NightLife Personal Portfolio",
+    //   mobileTitle: "NightLife Portfolio",
+    //   description:
+    //     "A visually dynamic and interactive personal portfolio showcasing projects with custom animations and 3D graphics, creating a 'nightlife' aesthetic.",
+    //   stack: ["React", "GSAP", "Shaders", "Three.js", "Spline", "Lenis"],
+    //   url: "https://github.com/Sparky17561/portfolio",
+    //   image: "image-3.png",
+    //   mobileImage: "image-3m.png"
+    // }
     {
-      title: "NightLife Personal Portfolio",
-      mobileTitle: "NightLife Portfolio",
+      title: "Pencil - AI-Powered Flowchart Generator & Editor",
+      mobileTitle: "Pencil : Eraser.io killer",
       description:
-        "A visually dynamic and interactive personal portfolio showcasing projects with custom animations and 3D graphics, creating a 'nightlife' aesthetic.",
-      stack: ["React", "GSAP", "Shaders", "Three.js", "Spline", "Lenis"],
-      url: "https://github.com/Sparky17561/portfolio",
-      image: "image-3.png",
-      mobileImage: "image-3m.png"
+        "An AI-powered flowchart generator and editor that creates detailed flowcharts from user prompts, allowing for easy customization and export in various formats. It leverages AI to streamline the design process, making it accessible for users of all skill levels.",
+      stack: ["React", "React Flow", "TailwindCSS", "Django", "Langchain", "GROQ API"],
+      url: "https://pencil-eta.vercel.app/",
+      image: "image-4.png",
+      mobileImage: "image-4m.png"
     }
   ];
 
