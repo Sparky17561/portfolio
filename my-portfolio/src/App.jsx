@@ -233,7 +233,7 @@ export default function App() {
             marginTop: '-72px'
           }}
         >
-          <AboutUs highlights={['SaiprasadJamdar','VibeCoding','AI','Backend','Gamethon2k25','FYTopper','competitive_programming','Awesome']} />
+          <AboutUs highlights={['SaiprasadJamdar','VibeCoding','AI','Backend','2x','Winner','FYTopper','competitive_programming','Awesome']} />
         </section>
 
         {/* PROJECTS SECTION */}

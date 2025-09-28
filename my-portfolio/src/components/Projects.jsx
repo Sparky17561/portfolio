@@ -68,16 +68,6 @@ const Projects = () => {
     //   image: "image-3.png",
     //   mobileImage: "image-3m.png"
     // }
-    {
-      title: "Pencil - AI-Powered Flowchart Generator & Editor",
-      mobileTitle: "Pencil : Eraser.io killer",
-      description:
-        "An AI-powered flowchart generator and editor that creates detailed flowcharts from user prompts, allowing for easy customization and export in various formats. It leverages AI to streamline the design process, making it accessible for users of all skill levels.",
-      stack: ["React", "React Flow", "TailwindCSS", "Django", "Langchain", "GROQ API"],
-      url: "https://pencil-eta.vercel.app/",
-      image: "image-4.png",
-      mobileImage: "image-4m.png"
-    }
   ];
 
   const totalSlides = projects.length;
